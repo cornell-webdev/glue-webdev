@@ -15,7 +15,7 @@
 	<SectionRotatingCirclesHero
 		heroTopLine="Passion for"
 		heroBottomLine="web development"
-		desc="Cornell webdev is a software engineering team at Cornell that builds performant web applications."
+		desc="Cornell webdev is a software engineering team that is passionate about building performant web applications."
 		linkLabel="Join us"
 		linkHref="/join-us" />
 	<SectionFadingCards
