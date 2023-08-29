@@ -81,7 +81,7 @@
 		desc2="We aim to accept at least 80% of the team applications we receive." />
 	<SectionInfo
 		overline="Step 3 - Build"
-		heading="Build your web application"
+		heading="Build a web application with your team"
 		desc="You will receive constant support and guidance from the mentors in our e-board. We prioritize speed and agility. Our philosophy is to build, launch, and iterate based on user feedback." />
 	<SectionInfo
 		isReversed={true}
