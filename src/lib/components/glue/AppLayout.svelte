@@ -100,7 +100,7 @@
 				<Footer />
 
 				<!-- feedback -->
-				<FeedbackModal />
+				<!-- <FeedbackModal /> -->
 			</div>
 		</div>
 
