@@ -4,6 +4,11 @@
 	import SectionInfo from '$lib/components/glue/landing/SectionInfo.svelte';
 	import SectionRotatingCirclesHero from '$lib/components/glue/landing/SectionRotatingCirclesHero.svelte';
 	import PageContainer from '$lib/components/glue/PageContainer.svelte';
+	import productLogosSrc from '$lib/assets/product-logos.png';
+	import growthSrc from '$lib/assets/growth.svg';
+	import logoCornletSrc from '$lib/assets/logo-cornlet.png';
+	import logoRideHubSrc from '$lib/assets/logo-ridehub.png';
+	import logoRsvpSrc from '$lib/assets/logo-rsvp.png';
 </script>
 
 <PageContainer title="Home">
@@ -21,13 +26,13 @@
 					heading: 'Cornlet',
 					subheading: 'Sublet marketplace',
 					desc: 'Cornell University is a private research university that provides an exceptional education for undergraduates and graduate and professional students.',
-					imagePath: '/logo-cornell.png'
+					imagePath: logoCornletSrc
 				},
 				{
-					heading: 'RideHub',
-					subheading: '100+ rides posted',
+					heading: 'RSVP',
+					subheading: 'Concert tickets',
 					desc: 'Stanford University is a prestigious private research institution located in Stanford, California. Founded in 1885 by Leland and Jane Stanford, it is renowned for its top-notch academic programs, cutting-edge research, and world-class faculty. ',
-					imagePath: '/logo-stanford.jpg'
+					imagePath: logoRsvpSrc
 				}
 			],
 			[
@@ -35,7 +40,7 @@
 					heading: 'RideHub',
 					subheading: 'Carpool with students',
 					desc: 'Yale University is a private Ivy League research university in New Haven, Connecticut. Founded in 1701, it is the third-oldest institution of higher education in the United States and one of the nine Colonial Colleges chartered before the American Revolution.',
-					imagePath: '/logo-yale.png'
+					imagePath: logoRideHubSrc
 				},
 				{
 					heading: 'ThriftHub',
@@ -52,8 +57,8 @@
 					imagePath: '/logo-penn.png'
 				},
 				{
-					heading: 'Harvard University',
-					subheading: '25 guides',
+					heading: 'ReferHub',
+					subheading: 'Job referral matching',
 					desc: 'Harvard University is a private Ivy League research university in Cambridge, Massachusetts. Founded in 1636, it is the oldest institution of higher education in the United States and the first to be established in the New World.',
 					imagePath: '/logo-harvard.jpg'
 				}
@@ -81,16 +86,18 @@
 	<SectionInfo
 		overline="Step 3 - Build"
 		heading="Build a web application with your team"
-		desc="You will receive constant support and guidance from the mentors in our e-board. We prioritize speed and agility. Our philosophy is to build, launch, and iterate based on user feedback." />
+		desc="You will receive constant support and guidance from the mentors in our e-board. We prioritize speed and agility. Our philosophy is to build, launch, and iterate based on user feedback."
+		photoPath={productLogosSrc} />
 	<SectionInfo
 		isReversed={true}
 		overline="Step 4 - Demo"
 		heading="Complete a MVP by the end of the semester"
-		desc="Each team has their own, flexible timeline, but we still highly encourage all teams to at least deploy a MVP by the end of the semester." />
-	<SectionInfo
+		desc="Each team has their own, flexible timeline, but we still highly encourage all teams to at least deploy a MVP by the end of the semester."
+		photoPath={growthSrc} />
+	<!-- <SectionInfo
 		overline="Step 5 - Join the e-board"
 		heading="Invitation to join the executive board"
-		desc="Those who successfully complete their project as a cohort member will be invited to join the executive board. They will be given leadership positions to mentor future cohorts of passionate designers and engineers." />
+		desc="Those who successfully complete their project as a cohort member will be invited to join the executive board. They will be given leadership positions to mentor future cohorts of passionate designers and engineers." /> -->
 	<!-- TODO: stats section -->
 	<SectionBoldStatement
 		overline="Join us"
