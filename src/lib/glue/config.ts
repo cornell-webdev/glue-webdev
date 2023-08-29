@@ -16,7 +16,7 @@ export const PRIVATE_NAVS: IPrivateNav[] = [
 	}
 ];
 export const IS_ENFORCE_CORNELL_EMAIL = false;
-export const IS_BETA = true;
+export const IS_BETA = false;
 export const SENTRY_DSN_PUBLIC = '';
 
 // used in terms and conditions
