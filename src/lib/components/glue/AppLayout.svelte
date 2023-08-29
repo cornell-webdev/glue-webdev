@@ -7,6 +7,7 @@
 	import Footer from './Footer.svelte';
 	import TrackWidth from './TrackWidth.svelte';
 	import './app.css';
+	import logo from '$lib/assets/logo.png';
 
 	let topAnchor;
 	let isDrawerOpen: boolean = false;
@@ -60,14 +61,16 @@
 
 						<!-- app name -->
 						<div>
-							<button>
-								<a href="/" class="btn-ghost btn-sm btn px-1 text-xl normal-case">
+							<a href="/">
+								<button
+									class="btn-ghost btn-sm btn flex h-[unset] items-center px-1 py-1 text-xl normal-case text-base-content/90">
+									<img class="w-8" src={logo} />
 									{APP_NAME}
 									{#if IS_BETA}
 										<span class="mt-1 hidden text-sm text-base-content/60 md:block">beta</span>
 									{/if}
-								</a>
-							</button>
+								</button>
+							</a>
 						</div>
 
 						<!-- right side public navs -->
