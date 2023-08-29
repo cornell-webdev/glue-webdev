@@ -57,6 +57,11 @@ git push glue glue-main:main
 
 The entire backend is handled by Supbase.
 
+## Authentication table
+
+1. Create a `profiles` table
+2. Link `id` column with reference to `auth.users.id`
+
 ## Sentry
 
 Update `sentry.properties` file with project name (ex. glue3-referhub)
