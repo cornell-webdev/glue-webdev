@@ -13,11 +13,6 @@
 		desc="Cornell webdev is a software engineering team at Cornell that builds performant web applications."
 		linkLabel="Join us"
 		linkHref="/join-us" />
-	<SectionBoldStatement
-		overline="Our philosophy"
-		heading="Build fast, fail forward"
-		desc="We don't believe in working on a project for 3 years and trying to deploy the perfect product."
-		desc2="We want to deploy an MVP in 1-2 months, see how the market reacts, and iterate based on user analytics and feedback." />
 	<SectionFadingCards
 		heading="80+ web apps built"
 		cardCols={[
@@ -64,7 +59,11 @@
 				}
 			]
 		]} />
-
+	<SectionBoldStatement
+		overline="Our philosophy"
+		heading="Build fast, fail forward"
+		desc="We don't believe in working on a project for 3 years and trying to deploy the perfect product."
+		desc2="We want to deploy an MVP in 1-2 months, see how the market reacts, and iterate based on user analytics and feedback." />
 	<SectionInfo
 		overline="Step 1 - Team Matching"
 		heading="Attend our team matching socials"
