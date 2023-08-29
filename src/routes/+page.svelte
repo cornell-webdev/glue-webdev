@@ -9,6 +9,9 @@
 	import logoCornletSrc from '$lib/assets/logo-cornlet.png';
 	import logoRideHubSrc from '$lib/assets/logo-ridehub.png';
 	import logoRsvpSrc from '$lib/assets/logo-rsvp.png';
+	import logoGigashipSrc from '$lib/assets/logo-gigaship.svg';
+	import logoThrifthubSrc from '$lib/assets/logo-thrifthub.svg';
+	import logoReferhubSrc from '$lib/assets/logo-referhub.svg';
 </script>
 
 <PageContainer title="Home">
@@ -46,7 +49,7 @@
 					heading: 'ThriftHub',
 					subheading: 'Thrifting marketplace',
 					desc: 'Princeton University is a private Ivy League research university in Princeton, New Jersey. Founded in 1746 in Elizabeth as the College of New Jersey, Princeton is the fourth-oldest institution of higher education in the United States and one of the nine Colonial Colleges chartered before the American Revolution. ',
-					imagePath: '/logo-princeton.png'
+					imagePath: logoThrifthubSrc
 				}
 			],
 			[
@@ -54,13 +57,13 @@
 					heading: 'Gigaship',
 					subheading: 'College job board',
 					desc: 'The University of Pennsylvania is a private Ivy League research university located in Philadelphia, Pennsylvania. Founded in 1740, it is the fourth-oldest institution of higher education in the United States. ',
-					imagePath: '/logo-penn.png'
+					imagePath: logoGigashipSrc
 				},
 				{
 					heading: 'ReferHub',
 					subheading: 'Job referral matching',
 					desc: 'Harvard University is a private Ivy League research university in Cambridge, Massachusetts. Founded in 1636, it is the oldest institution of higher education in the United States and the first to be established in the New World.',
-					imagePath: '/logo-harvard.jpg'
+					imagePath: logoReferhubSrc
 				}
 			]
 		]} />
