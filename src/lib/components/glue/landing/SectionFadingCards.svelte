@@ -52,13 +52,11 @@
 </script>
 
 <section
-	class="relative mx-auto mb-20 max-w-7xl px-4 pt-32 focus:outline-none sm:px-3 md:px-5 md:pt-48"
->
+	class="relative mx-auto mb-20 max-w-7xl px-4 pt-32 focus:outline-none sm:px-3 md:px-5 md:pt-48">
 	<h2 class="mt-4 text-center text-4xl font-extrabold tracking-tight sm:text-5xl">{heading}</h2>
 	<div
 		class="mt-12 grid grid-cols-1 gap-6 overflow-hidden sm:grid-cols-2 md:mt-20 lg:grid-cols-3 lg:gap-8 {!isShowMore &&
-			'max-h-[33rem]'}"
-	>
+			'max-h-[44rem] md:max-h-[33rem]'}">
 		{#each cardCols as cards}
 			<ul class="space-y-8">
 				{#each cards as card}
@@ -68,17 +66,17 @@
 		{/each}
 	</div>
 	<div
-		class="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center pt-96 pb-8 {!isShowMore &&
-			'bg-gradient-to-t from-base-100'}"
-	>
+		class="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center pb-8 pt-96 {!isShowMore &&
+			'bg-gradient-to-t from-base-100'}">
 		{#if enableShowMore && !isShowMore}
 			<button
 				type="button"
 				class="pointer-events-auto relative flex h-12 items-center rounded-lg bg-slate-900 px-6 text-sm font-semibold text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 dark:bg-slate-700 dark:hover:bg-slate-600"
 				on:click={() => {
 					isShowMore = true;
-				}}>Show more</button
-			>
+				}}>
+				Show more
+			</button>
 		{/if}
 	</div>
 </section>

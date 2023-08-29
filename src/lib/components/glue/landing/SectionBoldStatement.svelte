@@ -4,8 +4,8 @@
 
 	export let overline: string = 'Our mission';
 	export let heading: string = 'Give your schedulers a calendar not a list';
-	export let desc: string =
-		'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque, eos iusto perferendis eaque sunt dolores aliquam beatae consequuntur saepe commodi.';
+	export let desc: string = '';
+	export let desc2: string = '';
 	export let linkLabel: string = '';
 	export let linkHref: string = '';
 </script>
@@ -22,6 +22,12 @@
 		<p
 			class="text-md mx-auto mt-10 max-w-xl font-normal leading-relaxed text-base-content/70 md:text-lg">
 			{desc}
+		</p>
+	{/if}
+	{#if desc2}
+		<p
+			class="text-md mx-auto mt-4 max-w-xl font-normal leading-relaxed text-base-content/70 md:text-lg">
+			{desc2}
 		</p>
 	{/if}
 	{#if linkLabel}

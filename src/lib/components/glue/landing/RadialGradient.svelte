@@ -9,7 +9,7 @@
 	{placement === 'middle' ? 'justify-center' : ''}
 	{placement === 'right' ? 'justify-end' : ''}">
 	<div
-		class="bg-radial-gradient pointer-events-none h-[500px] w-[500px] opacity-[.25]
+		class="bg-radial-gradient pointer-events-none h-[500px] w-[500px] opacity-[.2]
 	{size === 'lg' ? 'md:h-[750px] md:w-[750px]' : ''}
 	{size === 'xl' ? 'md:h-[1000px] md:w-[1000px]' : ''}" />
 </div>
