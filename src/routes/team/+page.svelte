@@ -16,11 +16,11 @@
 		mainImageSrc={groupPhotoSrc} />
 
 	<h2 class="text-4xl font-extrabold">Members</h2>
-	<div class="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+	<div class="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 		{#each profiles as profile}
 			<div class="">
 				<img
-					class="h-[160px] w-[200px] overflow-hidden rounded-lg object-cover"
+					class="h-[200px] w-[200px] overflow-hidden rounded-lg object-cover"
 					width="200"
 					height="200"
 					src={profile?.avatarUrl}
@@ -32,11 +32,11 @@
 	</div>
 
 	<h2 class="mt-16 text-4xl font-extrabold">Alumni</h2>
-	<div class="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+	<div class="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 		{#each legacyProfiles as profile}
 			<div class="">
 				<img
-					class="h-[160px] w-[200px] overflow-hidden rounded-lg object-cover"
+					class="h-[200px] w-[200px] overflow-hidden rounded-lg object-cover"
 					width="200"
 					height="200"
 					src={profile?.avatarUrl}
