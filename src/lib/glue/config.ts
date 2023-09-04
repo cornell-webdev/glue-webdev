@@ -4,8 +4,8 @@ import type { IPrivateNav, IPublicNav } from '$lib/types/glue/nav.type';
 export const APP_NAME = 'webdev';
 export const PUBLIC_NAVS: IPublicNav[] = [
 	{
-		path: '/signin',
-		label: 'Sign in'
+		path: '/team',
+		label: 'Team'
 	}
 ];
 export const PRIVATE_NAVS: IPrivateNav[] = [
