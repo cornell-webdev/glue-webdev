@@ -6,13 +6,16 @@
 	import PageContainer from '$lib/components/glue/PageContainer.svelte';
 	import { APP_NAME } from '$lib/glue/config';
 
-	export let data;
-
-	$: if (browser && data?.session && data?.profile) {
-		const redirectTo = $page.url.searchParams.get('redirectTo');
-		$page.url.searchParams.delete('redirectTo');
-		const url = `${$page.url.origin}${redirectTo || '/'}`;
-		goto(url);
+	$: ({ session, profile } = $page.data);
+	$: if (browser && session) {
+		if (profile) {
+			const redirectTo = $page.url.searchParams.get('redirectTo');
+			$page.url.searchParams.delete('redirectTo');
+			const url = `${$page.url.origin}${redirectTo || '/'}`;
+			goto(url);
+		} else {
+			goto('/setup-profile');
+		}
 	}
 	$: authError = new URLSearchParams($page?.url.hash).get('error_description');
 </script>
