@@ -64,6 +64,7 @@
 				firstName,
 				lastName,
 				gradYear,
+				title,
 				major,
 				avatarUrl: avatarUrl
 			})
