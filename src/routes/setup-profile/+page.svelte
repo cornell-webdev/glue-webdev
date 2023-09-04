@@ -8,7 +8,8 @@
 
 	export let data;
 
-	let name: string = '';
+	let firstName: string = '';
+	let lastName: string = '';
 	let isUploadLoading: boolean = false;
 	let avatarPath: string = '';
 	let avatarUrl: string = '';
@@ -57,7 +58,8 @@
 			.from('profiles')
 			.upsert({
 				id: data?.session?.user?.id,
-				name,
+				firstName,
+				lastName,
 				avatarUrl: avatarUrl
 			})
 			.single();
@@ -75,7 +77,10 @@
 			<h1 class="text-2xl font-bold">Complete your profile</h1>
 			<form class="mt-6">
 				<div class="mt-3">
-					<TextInput bind:value={name} label="Name" required />
+					<TextInput bind:value={firstName} label="First name" required />
+				</div>
+				<div class="mt-3">
+					<TextInput bind:value={lastName} label="Last name" required />
 				</div>
 				<div class="mt-8">
 					<p class="ml-1 text-sm font-semibold text-base-content/90">
