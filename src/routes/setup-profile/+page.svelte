@@ -8,11 +8,14 @@
 
 	export let data;
 
-	let firstName: string = '';
-	let lastName: string = '';
-	let isUploadLoading: boolean = false;
-	let avatarPath: string = '';
-	let avatarUrl: string = '';
+	let firstName = '';
+	let lastName = '';
+	let isUploadLoading = false;
+	let avatarPath = '';
+	let avatarUrl = '';
+	let gradYear = '';
+	let title = '';
+	let major = '';
 	let isSaveLoading: boolean = false;
 
 	const uploadPhoto = async (event: Event & { currentTarget: HTMLInputElement }) => {
@@ -60,6 +63,8 @@
 				id: data?.session?.user?.id,
 				firstName,
 				lastName,
+				gradYear,
+				major,
 				avatarUrl: avatarUrl
 			})
 			.single();
@@ -74,18 +79,35 @@
 <PageContainer title="Set up your profile" layout="mobile-only">
 	<div class="flex w-full justify-center">
 		<div class="w-full md:max-w-md">
-			<h1 class="text-2xl font-bold">Complete your profile</h1>
-			<form class="mt-6">
+			<h1 class="text-4xl font-bold">Complete your profile</h1>
+			<p class="mt-4 text-sm text-base-content/80">* indictates required field</p>
+			<form class="mt-8">
 				<div class="mt-3">
-					<TextInput bind:value={firstName} label="First name" required />
+					<TextInput bind:value={firstName} label="First name*" required />
 				</div>
 				<div class="mt-3">
-					<TextInput bind:value={lastName} label="Last name" required />
+					<TextInput bind:value={lastName} label="Last name*" required />
+				</div>
+				<div class="mt-3">
+					<TextInput bind:value={gradYear} label="Graduation year*" required placeholder="YYYY" />
+					<p class="mt-1.5 ml-1 text-xs text-base-content/80">
+						Please write out the full year, like "2024"
+					</p>
+				</div>
+				<div class="mt-3">
+					<TextInput bind:value={major} label="Major*" required />
+					<p class="mt-1.5 ml-1 text-xs text-base-content/80">
+						Please write out the full major name
+					</p>
+				</div>
+				<div class="mt-3">
+					<TextInput bind:value={title} label="Title / Position*" required />
+					<p class="mt-1.5 ml-1 text-xs text-base-content/80">
+						ex) Software Engineer, Designer, Product Manager, etc
+					</p>
 				</div>
 				<div class="mt-8">
-					<p class="ml-1 text-sm font-semibold text-base-content/90">
-						Photo <span class="text-base-content/70">(optional)</span>
-					</p>
+					<p class="ml-1 text-sm font-semibold text-base-content/90">Photo*</p>
 					<input
 						type="file"
 						class="file-input-bordered file-input file-input-sm mt-4 w-full max-w-xs"
