@@ -4,10 +4,10 @@
 
 	export let heroTopLine = 'The thoughtful way';
 	export let heroBottomLine = 'to find a time to meet';
-	export let descTopLine =
-		'You’ll love it for the advanced features to keep you in control of your calendar.';
+	export let descTopLine = '';
 	export let descBottomLine = '';
 	export let href = '';
+	export let mainImageSrc = '';
 </script>
 
 <div class="relative mx-auto w-full">
@@ -40,5 +40,9 @@
 				</a>
 			</div>
 		{/if}
+
+		<div class="mt-12 flex justify-center lg:mt-20">
+			<img class="max-w-3xl rounded-xl object-cover" src={mainImageSrc} load="eager" />
+		</div>
 	</div>
 </div>
