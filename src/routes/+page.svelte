@@ -37,7 +37,7 @@
 				{
 					heading: 'RSVP',
 					subheading: 'Concert tickets',
-					desc: 'Stanford University is a prestigious private research institution located in Stanford, California. Founded in 1885 by Leland and Jane Stanford, it is renowned for its top-notch academic programs, cutting-edge research, and world-class faculty. ',
+					desc: 'RSVP is a ticketing web application for clubs hosting concerts and performances. It caters to the unique structure clubs sell tickets through sales quotas per member.',
 					imagePath: logoRsvpSrc
 				}
 			],
@@ -45,13 +45,13 @@
 				{
 					heading: 'RideHub',
 					subheading: 'Carpool with students',
-					desc: 'Yale University is a private Ivy League research university in New Haven, Connecticut. Founded in 1701, it is the third-oldest institution of higher education in the United States and one of the nine Colonial Colleges chartered before the American Revolution.',
+					desc: 'RideHub is a inter-city carpool matching platform that matches people who are looking to carpool to their next destination and people who are looking to monetize empty seats in their car. ',
 					imagePath: logoRideHubSrc
 				},
 				{
 					heading: 'ThriftHub',
 					subheading: 'Thrifting marketplace',
-					desc: 'Princeton University is a private Ivy League research university in Princeton, New Jersey. Founded in 1746 in Elizabeth as the College of New Jersey, Princeton is the fourth-oldest institution of higher education in the United States and one of the nine Colonial Colleges chartered before the American Revolution. ',
+					desc: 'ThriftHub is a web application that allows students to buy and sell used products. It is essentially Facebook marketplace, catered to the user experience of Cornell students.',
 					imagePath: logoThrifthubSrc
 				}
 			],
@@ -59,13 +59,13 @@
 				{
 					heading: 'Gigaship',
 					subheading: 'College job board',
-					desc: 'The University of Pennsylvania is a private Ivy League research university located in Philadelphia, Pennsylvania. Founded in 1740, it is the fourth-oldest institution of higher education in the United States. ',
+					desc: 'Gigaship is a job board for Cornell students. It allows students to find campus jobs and research positions in a simple, easy to use user interface. It also helps different orgs on campus to find student employees more easily. ',
 					imagePath: logoGigashipSrc
 				},
 				{
 					heading: 'ReferHub',
 					subheading: 'Job referral matching',
-					desc: 'Harvard University is a private Ivy League research university in Cambridge, Massachusetts. Founded in 1636, it is the oldest institution of higher education in the United States and the first to be established in the New World.',
+					desc: 'ReferHub is a job referral web application that matches alums wishing to give job referrals and students looking for job referrals. It aims to bridge the disconnect between alums to want to help students and students looking for help in the job market.',
 					imagePath: logoReferhubSrc
 				}
 			]
