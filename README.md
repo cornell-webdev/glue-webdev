@@ -9,3 +9,5 @@ The email for this project is cornellwebdev@gmail.com
 ## Contributors
 
 Jay Joo
+
+Kevin Zhen
