@@ -1,10 +1,6 @@
 # webdev
 
-Cornell webdev's main website.
-
-## Gmail
-
-The email for this project is cornellwebdev@gmail.com
+Cornell webdev's main website: https://www.cornellwebdev.com/
 
 ## Contributors
 
