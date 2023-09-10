@@ -4,4 +4,6 @@ Cornell webdev's main website: https://www.cornellwebdev.com/
 
 ## Contributors
 
-- Jay Joo
+Jay Joo
+Kevin Zhen
+Michael Liang
