@@ -9,3 +9,4 @@ The email for this project is cornellwebdev@gmail.com
 ## Contributors
 
 Jay Joo
+Michael Liang
