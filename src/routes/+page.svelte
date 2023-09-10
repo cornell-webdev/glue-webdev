@@ -12,6 +12,9 @@
 	import logoGigashipSrc from '$lib/assets/logo-gigaship.svg';
 	import logoThrifthubSrc from '$lib/assets/logo-thrifthub.svg';
 	import logoReferhubSrc from '$lib/assets/logo-referhub.svg';
+	import IconAlertCircle from '$lib/icons/glue/IconAlertCircle.svelte';
+	import instagramLogoSrc from '$lib/assets/instagram-logo.svg';
+	import slackLogoSrc from '$lib/assets/slack-logo.svg';
 </script>
 
 <PageContainer title="Home">
@@ -20,7 +23,7 @@
 		heroBottomLine="web development"
 		desc="Cornell webdev is a software engineering team that is passionate about building performant web applications."
 		linkLabel="Join us"
-		linkHref="/join-us" />
+		linkHref="#join-us-modal" />
 	<SectionFadingCards
 		heading="80+ web apps built"
 		cardCols={[
@@ -97,15 +100,71 @@
 		heading="Complete a MVP by the end of the semester"
 		desc="Each team has their own, flexible timeline, but we still highly encourage all teams to at least deploy a MVP by the end of the semester."
 		photoPath={growthSrc} />
-	<!-- <SectionInfo
-		overline="Step 5 - Join the e-board"
-		heading="Invitation to join the executive board"
-		desc="Those who successfully complete their project as a cohort member will be invited to join the executive board. They will be given leadership positions to mentor future cohorts of passionate designers and engineers." /> -->
-	<!-- TODO: stats section -->
 	<SectionBoldStatement
 		overline="Join us"
 		heading="Ready to join our driven team of engineers and designers?"
 		desc="Cornell webdev is a software engineering team at Cornell that aims to build performant web applications."
 		linkLabel="Join us"
-		linkHref="/join-us" />
+		linkHref="#join-us-modal" />
+
+	<!-- join us modal -->
+	<div class="modal" id="join-us-modal">
+		<div class="modal-box">
+			<h3 class="text-3xl font-extrabold">Join us 👋</h3>
+			<div class="alert alert-warning mt-4 flex items-start bg-yellow-100 text-yellow-700">
+				<span class="text-xl">
+					<IconAlertCircle />
+				</span>
+				<div>
+					<p class="text-sm">
+						If you're interested in joining, you're highly recommended to attend an in-person, team
+						finding session early on in the semester.
+					</p>
+					<p class="mt-2 text-sm">
+						Once we have the cohort for the semester finalized, you won't be able to join in the
+						middle of the semester.
+					</p>
+					<p class="mt-2 text-sm">You're welcome to join us in the following semester!</p>
+				</div>
+			</div>
+			<a href="https://www.instagram.com/cornellwebdev/" target="_blank" rel="noreferrer">
+				<button
+					class="mt-6 flex w-full rounded-lg border-2 border-base-content/10 p-3 text-left hover:border-base-content/30">
+					<img class="mr-4 mt-1 w-10" src={instagramLogoSrc} />
+					<div class="">
+						<div class="flex items-center">
+							<h4 class="text-lg font-bold">Instagram</h4>
+						</div>
+						<p class="mt-0.5 text-sm text-base-content/80">
+							Keep up to date by following up on Instagram. We make regular announcements and
+							progress updates through posts and stories.
+						</p>
+					</div>
+				</button>
+			</a>
+			<a
+				href="https://join.slack.com/t/cornellwebdev/shared_invite/zt-1nv81i4zb-4vLR4fE4lidPqh4sxgs7jw"
+				target="_blank"
+				rel="noreferrer">
+				<button
+					class="mt-3 flex w-full rounded-lg border-2 border-base-content/10 p-3 text-left hover:border-base-content/30">
+					<img class="mr-4 mt-1 w-10 rounded-xl bg-base-content/10" src={slackLogoSrc} />
+					<div class="">
+						<div class="flex items-center">
+							<h4 class="text-lg font-bold">Slack (public)</h4>
+						</div>
+						<p class="mt-0.5 text-sm text-base-content/80">
+							We make more detailed announcements for active members on Slack. Feel free to join our
+							Slack and listen in on what's going on!
+						</p>
+					</div>
+				</button>
+			</a>
+			<div class="mt-4">
+				<a href="#">
+					<button class="btn-neutral btn-block btn">Close</button>
+				</a>
+			</div>
+		</div>
+	</div>
 </PageContainer>
