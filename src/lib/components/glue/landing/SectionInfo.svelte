@@ -40,8 +40,14 @@
 				? 'origin-bottom-left -rotate-3'
 				: 'origin-bottom-right rotate-3'} transform rounded-lg" />
 		<div class="z-10 rounded-lg shadow">
-			<div class="overflow-hidden rounded-lg bg-white p-3 shadow-lg md:p-6">
-				<img src={photoPath} width="1092" height="878" alt="Calendar overlay" loading="lazy" />
+			<div class="overflow-hidden rounded-lg bg-white  p-3 shadow-lg md:p-6">
+				<img
+					src={photoPath}
+					width="1092"
+					height="878"
+					alt="Calendar overlay"
+					loading="lazy"
+					class="min-h-[300px] object-cover" />
 			</div>
 		</div>
 	</div>
