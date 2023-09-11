@@ -15,6 +15,8 @@
 	import IconAlertCircle from '$lib/icons/glue/IconAlertCircle.svelte';
 	import instagramLogoSrc from '$lib/assets/instagram-logo.svg';
 	import slackLogoSrc from '$lib/assets/slack-logo.svg';
+	import applyCohortSrc from '$lib/assets/apply-cohort.svg';
+	import groupPhotoSrc from '$lib/assets/group-photo-md.png';
 </script>
 
 <PageContainer title="Home">
@@ -78,12 +80,14 @@
 	<SectionInfo
 		overline="Step 1 - Team Matching"
 		heading="Attend our team matching socials"
-		desc="In the first few weeks of a semester, we host multiple team matching socials, where you can meet and interact with potential teammates for this semester cohort. " />
+		desc="In the first few weeks of a semester, we host multiple team matching socials, where you can meet and interact with potential teammates for this semester cohort. "
+		photoPath={groupPhotoSrc} />
 	<SectionInfo
 		isReversed={true}
 		overline="Step 2 - Application"
 		heading="Apply as a team for the semester cohort"
-		desc="With the teammates you formed during the team finding socials, apply as a team. We are looking for genuine passion in the idea, strong design and software engineering skills." />
+		desc="With the teammates you formed during the team finding socials, apply as a team. We are looking for genuine passion in the idea, strong design and software engineering skills."
+		photoPath={applyCohortSrc} />
 	<SectionBoldStatement
 		overline="Our belief"
 		heading="We strive to be an inclusive team for everyone at Cornell"
