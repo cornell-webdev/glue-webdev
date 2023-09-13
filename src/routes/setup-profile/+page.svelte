@@ -31,12 +31,16 @@
 
 			const compressedFile = await imageCompression(avatarFile, options);
 
-			const { data: photo } = await data?.supabase.storage
+			console.log(compressedFile);
+			const { data: photo, error } = await data?.supabase.storage
 				.from('avatars')
 				.upload(`${data?.session?.user?.id}/${avatarFile?.name}`, compressedFile, {
 					cacheControl: '3600',
 					upsert: true
 				});
+
+			console.log(photo);
+			console.log(error);
 
 			if (photo?.path) {
 				avatarPath = photo?.path;
@@ -91,19 +95,19 @@
 				</div>
 				<div class="mt-3">
 					<TextInput bind:value={gradYear} label="Graduation year*" required placeholder="YYYY" />
-					<p class="mt-1.5 ml-1 text-xs text-base-content/80">
+					<p class="ml-1 mt-1.5 text-xs text-base-content/80">
 						Please write out the full year, like "2024"
 					</p>
 				</div>
 				<div class="mt-3">
 					<TextInput bind:value={major} label="Major*" required />
-					<p class="mt-1.5 ml-1 text-xs text-base-content/80">
+					<p class="ml-1 mt-1.5 text-xs text-base-content/80">
 						Please write out the full major name
 					</p>
 				</div>
 				<div class="mt-3">
 					<TextInput bind:value={title} label="Title / Position*" required />
-					<p class="mt-1.5 ml-1 text-xs text-base-content/80">
+					<p class="ml-1 mt-1.5 text-xs text-base-content/80">
 						ex) Software Engineer, Designer, Product Manager, etc
 					</p>
 				</div>
@@ -111,7 +115,7 @@
 					<p class="ml-1 text-sm font-semibold text-base-content/90">Photo*</p>
 					<input
 						type="file"
-						class="file-input-bordered file-input file-input-sm mt-4 w-full max-w-xs"
+						class="file-input file-input-bordered file-input-sm mt-4 w-full max-w-xs"
 						required
 						on:input={uploadPhoto}
 						accept="image/png, image/jpeg" />
@@ -129,7 +133,7 @@
 					{/if}
 				</div>
 				<button
-					class="btn-primary btn mt-8"
+					class="btn btn-primary mt-8"
 					on:click={saveProfile}
 					disabled={isUploadLoading || isSaveLoading}>
 					{#if isSaveLoading}
