@@ -1,5 +1,6 @@
 <script lang="ts">
 	import IconRightArrowLong from '$lib/icons/glue/IconRightArrowLong.svelte';
+	import Saos from 'saos';
 
 	export let overline: string = 'Contraint-based';
 	export let heading: string = 'Give your schedulers a calendar, not a list.';
@@ -13,26 +14,28 @@
 </script>
 
 <div
-	class="mx-auto max-w-6xl items-center justify-center px-8 pt-18 md:flex md:pt-36 {isReversed &&
+	class="pt-18 mx-auto max-w-6xl items-center justify-center px-8 md:flex md:pt-36 {isReversed &&
 		'flex-row-reverse'}">
 	<div class="md:w-1/2 {isReversed ? 'md:pl-20' : 'md:pr-20'}">
-		<h2 class="mt-8 font-semibold text-primary">{overline}</h2>
-		<h2 class="mt-4 text-3xl font-extrabold  tracking-tight sm:text-4xl sm:leading-snug">
-			{heading}
-		</h2>
-		<p class="mt-4 max-w-3xl space-y-6 leading-relaxed text-base-content/70">
-			{desc}
-		</p>
-		{#if linkLabel}
-			<a
-				class="btn-primary btn-sm btn mt-6 gap-1 rounded-full"
-				href={linkHref}
-				target="_blank"
-				rel="noreferrer">
-				{linkLabel}
-				<span class="text-xl"><IconRightArrowLong /></span>
-			</a>
-		{/if}
+		<Saos animation={'fade-in 0.5s cubic-bezier(0.470, 0.000, 0.745, 0.715) both'} once={true}>
+			<h2 class="text-primary mt-8 font-semibold">{overline}</h2>
+			<h2 class="mt-4 text-3xl font-extrabold  tracking-tight sm:text-4xl sm:leading-snug">
+				{heading}
+			</h2>
+			<p class="text-base-content/70 mt-4 max-w-3xl space-y-6 leading-relaxed">
+				{desc}
+			</p>
+			{#if linkLabel}
+				<a
+					class="btn-primary btn-sm btn mt-6 gap-1 rounded-full"
+					href={linkHref}
+					target="_blank"
+					rel="noreferrer">
+					{linkLabel}
+					<span class="text-xl"><IconRightArrowLong /></span>
+				</a>
+			{/if}
+		</Saos>
 	</div>
 	<div class="relative mt-16 flex md:w-2/5">
 		<div

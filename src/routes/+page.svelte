@@ -72,6 +72,7 @@
 				}
 			]
 		]} />
+
 	<SectionBoldStatement
 		overline="Our philosophy"
 		heading="Build fast, fail forward"
@@ -133,13 +134,13 @@
 			</div>
 			<a href="https://www.instagram.com/cornellwebdev/" target="_blank" rel="noreferrer">
 				<button
-					class="mt-6 flex w-full rounded-lg border-2 border-base-content/10 p-3 text-left hover:border-base-content/30">
+					class="border-base-content/10 hover:border-base-content/30 mt-6 flex w-full rounded-lg border-2 p-3 text-left">
 					<img class="mr-4 mt-1 w-10" src={instagramLogoSrc} />
 					<div class="">
 						<div class="flex items-center">
 							<h4 class="text-lg font-bold">Instagram</h4>
 						</div>
-						<p class="mt-0.5 text-sm text-base-content/80">
+						<p class="text-base-content/80 mt-0.5 text-sm">
 							Keep up to date by following up on Instagram. We make regular announcements and
 							progress updates through posts and stories.
 						</p>
@@ -151,13 +152,13 @@
 				target="_blank"
 				rel="noreferrer">
 				<button
-					class="mt-3 flex w-full rounded-lg border-2 border-base-content/10 p-3 text-left hover:border-base-content/30">
-					<img class="mr-4 mt-1 w-10 rounded-xl bg-base-content/10" src={slackLogoSrc} />
+					class="border-base-content/10 hover:border-base-content/30 mt-3 flex w-full rounded-lg border-2 p-3 text-left">
+					<img class="bg-base-content/10 mr-4 mt-1 w-10 rounded-xl" src={slackLogoSrc} />
 					<div class="">
 						<div class="flex items-center">
 							<h4 class="text-lg font-bold">Slack (public)</h4>
 						</div>
-						<p class="mt-0.5 text-sm text-base-content/80">
+						<p class="text-base-content/80 mt-0.5 text-sm">
 							We make more detailed announcements for active members on Slack. Feel free to join our
 							Slack and listen in on what's going on!
 						</p>
@@ -172,3 +173,19 @@
 		</div>
 	</div>
 </PageContainer>
+
+<!-- Defining keyframe animations for fade-in fade-out using saos -->
+<style>
+	@keyframes -global-fade-in {
+		0% {
+			-webkit-transform: translateY(50px);
+			transform: translateY(50px);
+			opacity: 0;
+		}
+		100% {
+			-webkit-transform: translateY(0);
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+</style>
