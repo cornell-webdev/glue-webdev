@@ -4,7 +4,6 @@
 	import photoPath from '$lib/assets/product-logos.png';
 	import { goto, invalidateAll } from '$app/navigation';
 	import imageCompression from 'browser-image-compression';
-	import { page } from '$app/stores';
 
 	// img storage paths
 	let imgPath = '';

@@ -31,16 +31,12 @@
 
 			const compressedFile = await imageCompression(avatarFile, options);
 
-			console.log(compressedFile);
 			const { data: photo, error } = await data?.supabase.storage
 				.from('avatars')
 				.upload(`${data?.session?.user?.id}/${avatarFile?.name}`, compressedFile, {
 					cacheControl: '3600',
 					upsert: true
 				});
-
-			console.log(photo);
-			console.log(error);
 
 			if (photo?.path) {
 				avatarPath = photo?.path;
