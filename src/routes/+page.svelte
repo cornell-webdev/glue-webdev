@@ -192,4 +192,8 @@
 			opacity: 1;
 		}
 	}
+
+	.btn:focus {
+		outline: none !important;
+	}
 </style>
