@@ -21,11 +21,11 @@
 	on:click|self={() => thisModal.close()}
 	class="modal"
 	id={modalID}>
-	<div class="modal-box">
+	<div class="modal-box outline-none">
 		<slot />
 
-		<form method="dialog" class="modal-backdrop">
-			<div class="mt-4">
+		<form method="dialog">
+			<div class="modal-action mt-4">
 				<button class="btn-neutral btn-block btn">Close</button>
 			</div>
 		</form>

@@ -142,7 +142,11 @@
 				<p class="mt-2 text-sm">You're welcome to join us in the following semester!</p>
 			</div>
 		</div>
-		<a href="https://www.instagram.com/cornellwebdev/" target="_blank" rel="noreferrer">
+		<a
+			href="https://www.instagram.com/cornellwebdev/"
+			target="_blank"
+			rel="noreferrer"
+			class="outline-none">
 			<button
 				class="border-base-content/10 hover:border-base-content/30 mt-6 flex w-full rounded-lg border-2 p-3 text-left">
 				<img class="mr-4 mt-1 w-10" src={instagramLogoSrc} />
@@ -160,7 +164,8 @@
 		<a
 			href="https://join.slack.com/t/cornellwebdev/shared_invite/zt-1nv81i4zb-4vLR4fE4lidPqh4sxgs7jw"
 			target="_blank"
-			rel="noreferrer">
+			rel="noreferrer"
+			class="outline-none">
 			<button
 				class="border-base-content/10 hover:border-base-content/30 mt-3 flex w-full rounded-lg border-2 p-3 text-left">
 				<img class="bg-base-content/10 mr-4 mt-1 w-10 rounded-xl" src={slackLogoSrc} />
@@ -191,9 +196,5 @@
 			transform: translateY(0);
 			opacity: 1;
 		}
-	}
-
-	.btn:focus {
-		outline: none !important;
 	}
 </style>
