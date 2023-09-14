@@ -4,6 +4,7 @@
 	import photoPath from '$lib/assets/product-logos.png';
 	import { goto, invalidateAll } from '$app/navigation';
 	import imageCompression from 'browser-image-compression';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	// img storage paths
 	let imgPath = '';
@@ -88,7 +89,7 @@
 
 		if (projectName) {
 			const { data: duplicateData, error: duplicateError } = await data?.supabase
-				.from('test_project_table')
+				.from('projects')
 				.select('name')
 				.eq('name', projectName);
 
@@ -99,7 +100,7 @@
 				duplicateProject = false;
 
 				const { data: insertData, error } = await data?.supabase
-					.from('test_project_table')
+					.from('projects')
 					.insert({ name: projectName, description: projectDescription })
 					.select();
 
@@ -112,18 +113,19 @@
 						const imgUrl = await uploadPhoto(projId, file);
 
 						await data?.supabase
-							.from('test_project_table')
+							.from('projects')
 							.update({ imgUrl: imgUrl as string })
 							.eq('id', projId)
 							.select();
 					} else {
 						// revert changes
-						await data?.supabase.from('test_project_table').delete().eq('id', projId);
+						await data?.supabase.from('projects').delete().eq('id', projId);
 					}
 				}
 
 				await invalidateAll();
-				await goto(`/project/${projId}`);
+				await goto(`/project`);
+				toast.push('✅ Your project was successfully registered');
 			}
 		} else {
 			nameError = true;
@@ -185,7 +187,7 @@
 							bind:this={fileInput}
 							on:change={handleImgChange}
 							type="file"
-							class={`file-input file-input-bordered file-input-sm w-full max-w-xs ${
+							class={`file-input-bordered file-input file-input-sm w-full max-w-xs ${
 								imgError && 'border-2 border-red-400'
 							}`}
 							accept=".png,.jpeg,.jpg,.webp"
@@ -202,7 +204,7 @@
 
 				<!-- submission -->
 				<button
-					class="btn btn-primary mt-8 flex w-full flex-row"
+					class="btn-primary btn mt-8 flex w-full flex-row"
 					on:click={() => handleProjectCreate()}>
 					{#if submitting}
 						<span class="loading loading-spinner" />
