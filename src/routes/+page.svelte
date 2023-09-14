@@ -17,15 +17,22 @@
 	import slackLogoSrc from '$lib/assets/slack-logo.svg';
 	import applyCohortSrc from '$lib/assets/apply-cohort.svg';
 	import groupPhotoSrc from '$lib/assets/group-photo-md.png';
+	import Modal from '$lib/components/glue/Modal.svelte';
+	import IconRightArrowLong from '$lib/icons/glue/IconRightArrowLong.svelte';
+
+	let showModal = false;
 </script>
 
 <PageContainer title="Home">
 	<SectionRotatingCirclesHero
 		heroTopLine="Passion for"
 		heroBottomLine="web development"
-		desc="Cornell webdev is a software engineering team that is passionate about building performant web applications."
-		linkLabel="Join us"
-		linkHref="#join-us-modal" />
+		desc="Cornell webdev is a software engineering team that is passionate about building performant web applications.">
+		<button class="btn-secondary btn gap-2" on:click={() => (showModal = true)}>
+			Join us
+			<span class="text-xl"><IconRightArrowLong /></span>
+		</button>
+	</SectionRotatingCirclesHero>
 	<SectionFadingCards
 		heading="80+ web apps built"
 		cardCols={[
@@ -109,69 +116,66 @@
 		overline="Join us"
 		heading="Ready to join our driven team of engineers and designers?"
 		desc="Cornell webdev is a software engineering team at Cornell that aims to build performant web applications."
-		linkLabel="Join us"
-		linkHref="#join-us-modal" />
+		linkLabel="Join us">
+		<button class="btn-primary btn mt-10 gap-1" on:click={() => (showModal = true)}>
+			Join Us
+			<span class="text-xl"><IconRightArrowLong /></span>
+		</button>
+	</SectionBoldStatement>
 
 	<!-- join us modal -->
-	<div class="modal" id="join-us-modal">
-		<div class="modal-box">
-			<h3 class="text-3xl font-extrabold">Join us 👋</h3>
-			<div class="alert alert-warning mt-4 flex items-start bg-yellow-100 text-yellow-700">
-				<span class="text-xl">
-					<IconAlertCircle />
-				</span>
-				<div>
-					<p class="text-sm">
-						If you're interested in joining, you're highly recommended to attend an in-person, team
-						finding session early on in the semester.
-					</p>
-					<p class="mt-2 text-sm">
-						Once we have the cohort for the semester finalized, you won't be able to join in the
-						middle of the semester.
-					</p>
-					<p class="mt-2 text-sm">You're welcome to join us in the following semester!</p>
-				</div>
-			</div>
-			<a href="https://www.instagram.com/cornellwebdev/" target="_blank" rel="noreferrer">
-				<button
-					class="border-base-content/10 hover:border-base-content/30 mt-6 flex w-full rounded-lg border-2 p-3 text-left">
-					<img class="mr-4 mt-1 w-10" src={instagramLogoSrc} />
-					<div class="">
-						<div class="flex items-center">
-							<h4 class="text-lg font-bold">Instagram</h4>
-						</div>
-						<p class="text-base-content/80 mt-0.5 text-sm">
-							Keep up to date by following up on Instagram. We make regular announcements and
-							progress updates through posts and stories.
-						</p>
-					</div>
-				</button>
-			</a>
-			<a
-				href="https://join.slack.com/t/cornellwebdev/shared_invite/zt-1nv81i4zb-4vLR4fE4lidPqh4sxgs7jw"
-				target="_blank"
-				rel="noreferrer">
-				<button
-					class="border-base-content/10 hover:border-base-content/30 mt-3 flex w-full rounded-lg border-2 p-3 text-left">
-					<img class="bg-base-content/10 mr-4 mt-1 w-10 rounded-xl" src={slackLogoSrc} />
-					<div class="">
-						<div class="flex items-center">
-							<h4 class="text-lg font-bold">Slack (public)</h4>
-						</div>
-						<p class="text-base-content/80 mt-0.5 text-sm">
-							We make more detailed announcements for active members on Slack. Feel free to join our
-							Slack and listen in on what's going on!
-						</p>
-					</div>
-				</button>
-			</a>
-			<div class="mt-4">
-				<a href="#">
-					<button class="btn-neutral btn-block btn">Close</button>
-				</a>
+	<Modal modalID="join-us-modal" bind:showModal>
+		<h3 class="text-3xl font-extrabold">Join us 👋</h3>
+		<div class="alert alert-warning mt-4 flex items-start bg-yellow-100 text-yellow-700">
+			<span class="text-xl">
+				<IconAlertCircle />
+			</span>
+			<div>
+				<p class="text-sm">
+					If you're interested in joining, you're highly recommended to attend an in-person, team
+					finding session early on in the semester.
+				</p>
+				<p class="mt-2 text-sm">
+					Once we have the cohort for the semester finalized, you won't be able to join in the
+					middle of the semester.
+				</p>
+				<p class="mt-2 text-sm">You're welcome to join us in the following semester!</p>
 			</div>
 		</div>
-	</div>
+		<a href="https://www.instagram.com/cornellwebdev/" target="_blank" rel="noreferrer">
+			<button
+				class="border-base-content/10 hover:border-base-content/30 mt-6 flex w-full rounded-lg border-2 p-3 text-left">
+				<img class="mr-4 mt-1 w-10" src={instagramLogoSrc} />
+				<div class="">
+					<div class="flex items-center">
+						<h4 class="text-lg font-bold">Instagram</h4>
+					</div>
+					<p class="text-base-content/80 mt-0.5 text-sm">
+						Keep up to date by following up on Instagram. We make regular announcements and progress
+						updates through posts and stories.
+					</p>
+				</div>
+			</button>
+		</a>
+		<a
+			href="https://join.slack.com/t/cornellwebdev/shared_invite/zt-1nv81i4zb-4vLR4fE4lidPqh4sxgs7jw"
+			target="_blank"
+			rel="noreferrer">
+			<button
+				class="border-base-content/10 hover:border-base-content/30 mt-3 flex w-full rounded-lg border-2 p-3 text-left">
+				<img class="bg-base-content/10 mr-4 mt-1 w-10 rounded-xl" src={slackLogoSrc} />
+				<div class="">
+					<div class="flex items-center">
+						<h4 class="text-lg font-bold">Slack (public)</h4>
+					</div>
+					<p class="text-base-content/80 mt-0.5 text-sm">
+						We make more detailed announcements for active members on Slack. Feel free to join our
+						Slack and listen in on what's going on!
+					</p>
+				</div>
+			</button>
+		</a>
+	</Modal>
 </PageContainer>
 
 <!-- Defining keyframe animations for fade-in fade-out using saos -->

@@ -96,16 +96,11 @@
 				{heroBottomLine}
 			</h2>
 			<p
-				class="mx-auto mt-8 max-w-md text-center text-xl font-normal leading-relaxed text-base-content/70 md:text-lg">
+				class="text-base-content/70 mx-auto mt-8 max-w-md text-center text-xl font-normal leading-relaxed md:text-lg">
 				{desc}
 			</p>
 			<div class="relative z-20 mt-10 flex justify-center">
-				<a href={linkHref}>
-					<button class="btn-secondary btn gap-2">
-						{linkLabel}
-						<span class="text-xl"><IconRightArrowLong /></span>
-					</button>
-				</a>
+				<slot />
 			</div>
 		</div>
 
@@ -118,29 +113,29 @@
 				<!-- radial dotted lines: dark mode -->
 				<div class="light:hidden">
 					<div
-						class="radial-dotted-lines h-[764px] w-[764px] rounded-full border-2 border-dashed border-base-content/[.03]" />
+						class="radial-dotted-lines border-base-content/[.03] h-[764px] w-[764px] rounded-full border-2 border-dashed" />
 				</div>
 				<div class="light:hidden">
 					<div
-						class="radial-dotted-lines h-[924px] w-[924px] rounded-full border-2 border-dashed border-base-content/[.03]" />
+						class="radial-dotted-lines border-base-content/[.03] h-[924px] w-[924px] rounded-full border-2 border-dashed" />
 				</div>
 				<div class="light:hidden">
 					<div
-						class="radial-dotted-lines h-[604px] w-[604px] rounded-full border-2 border-dashed border-base-content/[.03]" />
+						class="radial-dotted-lines border-base-content/[.03] h-[604px] w-[604px] rounded-full border-2 border-dashed" />
 				</div>
 
 				<!-- radial dotted lines: light mode -->
 				<div class="dark:hidden">
 					<div
-						class="radial-dotted-lines h-[764px] w-[764px] rounded-full border-2 border-dashed border-base-content/[.03]" />
+						class="radial-dotted-lines border-base-content/[.03] h-[764px] w-[764px] rounded-full border-2 border-dashed" />
 				</div>
 				<div class="dark:hidden">
 					<div
-						class="radial-dotted-lines h-[924px] w-[924px] rounded-full border-2 border-dashed border-base-content/[.03]" />
+						class="radial-dotted-lines border-base-content/[.03] h-[924px] w-[924px] rounded-full border-2 border-dashed" />
 				</div>
 				<div class="dark:hidden">
 					<div
-						class="radial-dotted-lines h-[604px] w-[604px] rounded-full border-2 border-dashed border-base-content/[.03]" />
+						class="radial-dotted-lines border-base-content/[.03] h-[604px] w-[604px] rounded-full border-2 border-dashed" />
 				</div>
 			</div>
 
