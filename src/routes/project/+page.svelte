@@ -28,9 +28,9 @@
 					{#each projects as project (project.id)}
 						<div class="my-6 flex">
 							<img class="w-40 rounded-xl bg-base-content/10" src={project?.imgUrl} />
-							<div class="ml-4">
-								<h3 class="text-2xl font-extrabold">{project?.name}</h3>
-								<p class="mt-2 whitespace-pre-wrap text-sm text-base-content/80">
+							<div class="ml-6">
+								<h3 class="text-3xl font-extrabold">{project?.name}</h3>
+								<p class="mt-2 whitespace-pre-wrap leading-relaxed text-base-content/80">
 									{project?.description}
 								</p>
 							</div>
