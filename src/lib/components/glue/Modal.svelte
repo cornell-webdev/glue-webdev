@@ -1,14 +1,8 @@
 <script lang="ts">
-	/**
-	 * @type {boolean}
-	 */
 	export let showModal: boolean;
 
 	export let modalID: string = '';
 
-	/**
-	 * @type {HTMLDialogElement}
-	 */
 	let thisModal: HTMLDialogElement;
 
 	$: if (thisModal && showModal) thisModal.showModal();
