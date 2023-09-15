@@ -14,7 +14,7 @@
 		desc="Our projects are either solving critical problems for the Cornell community or were a fun experience to build something cool " />
 	<Saos animation={'fade-in 0.5s cubic-bezier(0.470, 0.000, 0.745, 0.715) both'} once={true}>
 		<div class="mb-32 flex justify-center">
-			<div class="w-full max-w-xl">
+			<div class="w-full max-w-3xl">
 				<h1 class="text-4xl font-extrabold">Our projects</h1>
 				<p class="mt-8 text-base-content/80">
 					Some of our projects have been discontinued, and that's totally okay! We like to emphasize
