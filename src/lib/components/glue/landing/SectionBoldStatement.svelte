@@ -1,5 +1,4 @@
 <script lang="ts">
-	import IconRightArrowLong from '$lib/icons/glue/IconRightArrowLong.svelte';
 	import RadialGradient from './RadialGradient.svelte';
 
 	export let overline: string = 'Our mission';
@@ -33,10 +32,7 @@
 			</p>
 		{/if}
 		{#if linkLabel}
-			<a class="btn-primary btn mt-10 gap-1" href={linkHref}>
-				{linkLabel}
-				<span class="text-xl"><IconRightArrowLong /></span>
-			</a>
+			<slot />
 		{/if}
 	</Saos>
 </section>
