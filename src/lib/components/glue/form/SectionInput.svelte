@@ -32,7 +32,7 @@
 	<!-- text area -->
 	{#if type === 'textarea'}
 		<textarea
-			class={`textarea textarea-bordered h-24 ${showError && 'textarea-error'}`}
+			class={`textarea-bordered textarea h-24 ${showError && 'textarea-error'} leading-normal`}
 			{placeholder}
 			name={inputName}
 			on:input={handleChange} />

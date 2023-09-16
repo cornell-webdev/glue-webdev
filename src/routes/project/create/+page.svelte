@@ -6,6 +6,7 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import imageCompression from 'browser-image-compression';
 	import { onMount } from 'svelte';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	// img storage paths
 	let imgPath = '';
@@ -133,6 +134,7 @@
 			} else {
 				duplicateProject = false;
 
+
 				if (fileInput && fileInput.files && fileInput.files.length > 0) {
 					const file = fileInput.files[0];
 
@@ -167,7 +169,9 @@
 								await data?.supabase.from('projectUserRelation').insert(memberData);
 
 								await invalidateAll();
-								await goto(`/project/${projId}`);
+								await goto(`/project`);
+                toast.push('✅ Your project was successfully registered');
+                
 							} else {
 								imgError = true;
 							}
@@ -245,7 +249,7 @@
 							bind:this={fileInput}
 							on:change={handleImgChange}
 							type="file"
-							class={`file-input file-input-bordered file-input-sm w-full max-w-xs ${
+							class={`file-input-bordered file-input file-input-sm w-full max-w-xs ${
 								imgError && 'border-2 border-red-400'
 							}`}
 							accept=".png,.jpeg,.jpg,.webp"
@@ -262,7 +266,7 @@
 
 				<!-- submission -->
 				<button
-					class="btn btn-primary mt-8 flex w-full flex-row"
+					class="btn-primary btn mt-8 flex w-full flex-row"
 					on:click={() => handleProjectCreate()}>
 					{#if submitting}
 						<span class="loading loading-spinner" />
