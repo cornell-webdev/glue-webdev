@@ -70,7 +70,7 @@
 	});
 
 	// handle image upload
-	async function handleImgChange(): Promise<void> {
+	const handleImgChange = async (): Promise<void> => {
 		if (fileInput && fileInput.files && fileInput.files.length > 0) {
 			const file = fileInput.files[0];
 			if (file) {
@@ -85,10 +85,10 @@
 				reader.readAsDataURL(file);
 			}
 		}
-	}
+	};
 
 	// handle image compression and upload
-	const uploadPhoto = async (projId: string, imgFile: File): Promise<string | undefined> => {
+	const uploadPhoto = async (projName: string, imgFile: File): Promise<string | undefined> => {
 		if (imgFile) {
 			const options = {
 				maxSizeMB: 2,
@@ -98,9 +98,11 @@
 
 			const compressedFile = await imageCompression(imgFile, options);
 
+			console.log(compressedFile);
+
 			const { data: photo, error } = await data?.supabase.storage
 				.from('projects')
-				.upload(`${projId}.${compressedFile.type.split('/')[1]}`, compressedFile, {
+				.upload(`${projName}.${compressedFile.type.split('/')[1]}`, compressedFile, {
 					cacheControl: '3600',
 					upsert: true
 				});
@@ -110,7 +112,7 @@
 				const { data: publicUrlData } = data?.supabase.storage
 					.from('projects')
 					.getPublicUrl(imgPath);
-				imgUrl = publicUrlData?.publicUrl || '';
+				imgUrl = publicUrlData?.publicUrl;
 
 				return imgUrl;
 			}
@@ -134,47 +136,34 @@
 			} else {
 				duplicateProject = false;
 
-
 				if (fileInput && fileInput.files && fileInput.files.length > 0) {
 					const file = fileInput.files[0];
 
 					if (file) {
-						const { data: insertData, error } = await data?.supabase
-							.from('projects')
-							.insert({ name: projectName, description: projectDescription })
-							.select();
+						const imageUrl = await uploadPhoto(projectName, file);
 
-						projId = (insertData as Project[])[0].id as string;
+						if (imageUrl) {
+							imgError = false;
 
-						if (error) {
-							// rollback transaction
-							await data?.supabase.from('projects').delete().eq('id', projId);
+							const { data: insertData, error } = await data?.supabase
+								.from('projects')
+								.insert({ name: projectName, description: projectDescription, imgUrl: imageUrl })
+								.select();
+
+							const projId = insertData?.[0].id;
+
+							const memberData = selectedMembers?.map((member: Member) => ({
+								user_id: member.value,
+								project_id: projId
+							}));
+
+							await data?.supabase.from('projectUserRelation').insert(memberData);
+
+							await invalidateAll();
+							await goto(`/project`);
+							toast.push('✅ Your project was successfully registered');
 						} else {
-							const imgUrl = await uploadPhoto(projId, file);
-
-							if (imgUrl) {
-								imgError = false;
-
-								await data?.supabase
-									.from('projects')
-									.update({ imgUrl: imgUrl as string })
-									.eq('id', projId)
-									.select();
-
-								const memberData = selectedMembers?.map((member: Member) => ({
-									user_id: member.value,
-									project_id: projId
-								}));
-
-								await data?.supabase.from('projectUserRelation').insert(memberData);
-
-								await invalidateAll();
-								await goto(`/project`);
-                toast.push('✅ Your project was successfully registered');
-                
-							} else {
-								imgError = true;
-							}
+							imgError = true;
 						}
 					} else {
 						imgError = true;
@@ -249,7 +238,7 @@
 							bind:this={fileInput}
 							on:change={handleImgChange}
 							type="file"
-							class={`file-input-bordered file-input file-input-sm w-full max-w-xs ${
+							class={`file-input file-input-bordered file-input-sm w-full max-w-xs ${
 								imgError && 'border-2 border-red-400'
 							}`}
 							accept=".png,.jpeg,.jpg,.webp"
@@ -266,7 +255,7 @@
 
 				<!-- submission -->
 				<button
-					class="btn-primary btn mt-8 flex w-full flex-row"
+					class="btn btn-primary mt-8 flex w-full flex-row"
 					on:click={() => handleProjectCreate()}>
 					{#if submitting}
 						<span class="loading loading-spinner" />
