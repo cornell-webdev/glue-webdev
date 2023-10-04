@@ -41,7 +41,7 @@
 		<input
 			type="text"
 			{placeholder}
-			class={`input-bordered input input-md w-full max-w-sm ${showError && 'input-error'}`}
+			class={`input input-bordered input-md w-full max-w-full ${showError && 'input-error'}`}
 			name={inputName}
 			on:input={handleChange} />
 	{/if}
