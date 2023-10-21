@@ -1,9 +1,12 @@
 <script lang="ts">
 	import SectionInput from '$lib/components/glue/form/SectionInput.svelte';
+	import MultiSelect from '$lib/components/glue/form/Multiselect.svelte';
 	import PageContainer from '$lib/components/glue/PageContainer.svelte';
 	import photoPath from '$lib/assets/product-logos.png';
 	import { goto, invalidateAll } from '$app/navigation';
 	import imageCompression from 'browser-image-compression';
+	import { onMount } from 'svelte';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	// img storage paths
 	let imgPath = '';
@@ -31,8 +34,43 @@
 		imgUrl: string;
 	};
 
+	// supabase data
+	export let data;
+
+	type Member = {
+		value: string;
+		label: string;
+		canRemove: boolean;
+	};
+
+	let members: Member[] | undefined = [];
+	let selectedMembers: Member[] | undefined = [];
+
+	onMount(async () => {
+		const { data: allMembers } = await data?.supabase
+			.from('profiles')
+			.select('id,firstName, lastName');
+
+		members = allMembers?.map((member) => ({
+			value: member.id,
+			label: `${member.firstName} ${member.lastName}`,
+			canRemove: false
+		}));
+
+		const { data: currentMember } = await data?.supabase
+			.from('profiles')
+			.select('id,firstName, lastName')
+			.eq('id', data?.session?.user.id);
+
+		selectedMembers = currentMember?.map((member) => ({
+			value: member.id,
+			label: `${member.firstName} ${member.lastName}`,
+			canRemove: true
+		}));
+	});
+
 	// handle image upload
-	async function handleImgChange(): Promise<void> {
+	const handleImgChange = async (): Promise<void> => {
 		if (fileInput && fileInput.files && fileInput.files.length > 0) {
 			const file = fileInput.files[0];
 			if (file) {
@@ -47,10 +85,10 @@
 				reader.readAsDataURL(file);
 			}
 		}
-	}
+	};
 
 	// handle image compression and upload
-	const uploadPhoto = async (projId: string, imgFile: File): Promise<string | undefined> => {
+	const uploadPhoto = async (projName: string, imgFile: File): Promise<string | undefined> => {
 		if (imgFile) {
 			const options = {
 				maxSizeMB: 2,
@@ -60,9 +98,11 @@
 
 			const compressedFile = await imageCompression(imgFile, options);
 
+			console.log(compressedFile);
+
 			const { data: photo, error } = await data?.supabase.storage
 				.from('projects')
-				.upload(`${projId}.${compressedFile.type.split('/')[1]}`, compressedFile, {
+				.upload(`${projName}.${compressedFile.type.split('/')[1]}`, compressedFile, {
 					cacheControl: '3600',
 					upsert: true
 				});
@@ -72,23 +112,21 @@
 				const { data: publicUrlData } = data?.supabase.storage
 					.from('projects')
 					.getPublicUrl(imgPath);
-				imgUrl = publicUrlData?.publicUrl || '';
+				imgUrl = publicUrlData?.publicUrl;
 
 				return imgUrl;
 			}
 		}
 	};
 
-	// supabase data
-	export let data;
-
 	// handle form submission for projects
 	const handleProjectCreate = async () => {
 		submitting = true;
+		var projId: string;
 
 		if (projectName) {
 			const { data: duplicateData, error: duplicateError } = await data?.supabase
-				.from('test_project_table')
+				.from('projects')
 				.select('name')
 				.eq('name', projectName);
 
@@ -98,32 +136,41 @@
 			} else {
 				duplicateProject = false;
 
-				const { data: insertData, error } = await data?.supabase
-					.from('test_project_table')
-					.insert({ name: projectName, description: projectDescription })
-					.select();
-
-				const projId = (insertData as Project[])[0].id as string;
-
 				if (fileInput && fileInput.files && fileInput.files.length > 0) {
 					const file = fileInput.files[0];
 
 					if (file) {
-						const imgUrl = await uploadPhoto(projId, file);
+						const imageUrl = await uploadPhoto(projectName, file);
 
-						await data?.supabase
-							.from('test_project_table')
-							.update({ imgUrl: imgUrl as string })
-							.eq('id', projId)
-							.select();
+						if (imageUrl) {
+							imgError = false;
+
+							const { data: insertData, error } = await data?.supabase
+								.from('projects')
+								.insert({ name: projectName, description: projectDescription, imgUrl: imageUrl })
+								.select();
+
+							const projId = insertData?.[0].id;
+
+							const memberData = selectedMembers?.map((member: Member) => ({
+								user_id: member.value,
+								project_id: projId
+							}));
+
+							await data?.supabase.from('projectUserRelation').insert(memberData);
+
+							await invalidateAll();
+							await goto(`/project`);
+							toast.push('✅ Your project was successfully registered');
+						} else {
+							imgError = true;
+						}
 					} else {
-						// revert changes
-						await data?.supabase.from('test_project_table').delete().eq('id', projId);
+						imgError = true;
 					}
+				} else {
+					imgError = true;
 				}
-
-				await invalidateAll();
-				await goto(`/project/${projId}`);
 			}
 		} else {
 			nameError = true;
@@ -135,24 +182,30 @@
 <PageContainer title="About us" isHoriPadding={false}>
 	<div class="flex w-full flex-row items-start justify-evenly">
 		<!-- image section -->
-		<div class="relative mt-48 flex w-1/3">
+		<div class="max-w-1/3 relative mt-48 flex w-2/3">
 			<div class="bg-gradient absolute inset-0 origin-bottom-right rotate-3 transform rounded-lg" />
 			<div class="z-10 overflow-hidden rounded-lg bg-white p-3 py-24 shadow-lg md:p-6">
 				<img src={photoPath} width="1092" height="878" alt="Calendar overlay" loading="lazy" />
 			</div>
 		</div>
 
-		<div class="ml-8 mt-8 flex flex-col gap-2 p-16">
+		<div class="ml-24 mt-8 flex w-2/3 flex-col gap-2 p-16">
 			<!-- heading -->
 			<h3 class="text-base font-semibold text-primary">{'Application → Build'}</h3>
 			<h1 class="text-3xl font-bold">Create a New Project</h1>
 			<p class=" mt-1 text-sm text-base-content/80">* indictates required field</p>
 
 			<!-- form section -->
-			<div class="flex flex-col gap-2 py-2">
+			<div class="flex w-full max-w-full flex-col gap-2 py-2">
 				<div class="flex flex-row items-end justify-center gap-4">
 					<div class="form-control w-full gap-1" />
 				</div>
+
+				<MultiSelect
+					options={members || []}
+					bind:selectedOptions={selectedMembers}
+					heading="Members"
+					placeholder="Search Members" />
 
 				<SectionInput
 					heading="Name"
