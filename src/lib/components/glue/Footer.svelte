@@ -4,27 +4,22 @@
 
 	const navs = [
 		{
-			heading: 'Product',
-			links: [
-				{ label: 'Home', href: '/' },
-				{ label: 'Database', href: '/database' },
-				{ label: 'Calendar', href: '/calendar' }
-			]
-		},
-		{
 			heading: 'About',
 			links: [
-				{ label: 'About us', href: '/' },
-				{ label: 'Team', href: '/database' },
-				{ label: 'Join us', href: '/calendar' }
+				{ label: 'Team', href: '/team', isNewTab: false },
+				{ label: 'Projects', href: '/project', isNewTab: false }
 			]
 		},
 		{
-			heading: 'Company',
+			heading: 'Contact',
 			links: [
-				{ label: 'Blog', href: '/' },
-				{ label: 'Database', href: '/database' },
-				{ label: 'Upcoming events', href: '/calendar' }
+				{ label: 'Instagram', href: 'https://www.instagram.com/cornellwebdev/', isNewTab: true },
+				{
+					label: 'Slack',
+					href: 'https://join.slack.com/t/cornellwebdev/shared_invite/zt-1nv81i4zb-4vLR4fE4lidPqh4sxgs7jw',
+					isNewTab: true
+				},
+				{ label: 'LinkTree', href: 'https://linktr.ee/cornellwebdev', isNewTab: true }
 			]
 		}
 	];
@@ -51,7 +46,8 @@
 									<li>
 										<a
 											href={link.href}
-											class="btn-ghost btn-sm btn px-1 font-medium text-base-content/60">
+											class="btn-ghost btn-sm btn px-1 font-medium text-base-content/60"
+											target={link.isNewTab ? '_blank' : undefined}>
 											{link.label}
 										</a>
 									</li>

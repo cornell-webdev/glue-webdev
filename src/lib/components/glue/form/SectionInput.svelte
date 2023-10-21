@@ -32,7 +32,7 @@
 	<!-- text area -->
 	{#if type === 'textarea'}
 		<textarea
-			class={`textarea textarea-bordered h-24 ${showError && 'textarea-error'}`}
+			class={`textarea-bordered textarea h-24 ${showError && 'textarea-error'} leading-normal`}
 			{placeholder}
 			name={inputName}
 			on:input={handleChange} />
@@ -41,7 +41,7 @@
 		<input
 			type="text"
 			{placeholder}
-			class={`input input-bordered input-md w-full max-w-sm ${showError && 'input-error'}`}
+			class={`input input-bordered input-md w-full max-w-full ${showError && 'input-error'}`}
 			name={inputName}
 			on:input={handleChange} />
 	{/if}
