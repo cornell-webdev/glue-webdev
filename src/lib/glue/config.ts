@@ -6,6 +6,10 @@ export const PUBLIC_NAVS: IPublicNav[] = [
 	{
 		path: '/team',
 		label: 'Team'
+	},
+	{
+		path: '/resources',
+		label: 'Resources'
 	}
 ];
 export const PRIVATE_NAVS: IPrivateNav[] = [
