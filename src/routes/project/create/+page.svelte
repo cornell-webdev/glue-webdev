@@ -67,9 +67,6 @@
 			label: `${member.firstName} ${member.lastName}`,
 			canRemove: false
 		}));
-
-		console.log(selectedMembers);
-		console.log(members);
 	});
 
 	// handle image upload
@@ -100,8 +97,6 @@
 			};
 
 			const compressedFile = await imageCompression(imgFile, options);
-
-			console.log(compressedFile);
 
 			const { data: photo, error } = await data?.supabase.storage
 				.from('projects')
