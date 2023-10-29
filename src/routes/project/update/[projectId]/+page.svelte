@@ -77,7 +77,6 @@
 			  }))
 			: [];
 
-		console.log(projectId);
 		const { data: projectData } = await data?.supabase
 			.from('projects')
 			.select('id, name, description, imgUrl')
@@ -114,8 +113,6 @@
 			};
 
 			const compressedFile = await imageCompression(imgFile, options);
-
-			console.log(compressedFile);
 
 			const { data: photo, error } = await data?.supabase.storage
 				.from('projects')
