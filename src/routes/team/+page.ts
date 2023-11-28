@@ -7,11 +7,5 @@ export const load: Load = async ({ parent }) => {
 		return profiles;
 	};
 
-	const fetchLegacyProfiles = async () => {
-		const { supabase } = await parent();
-		const { data: legacyProfiles } = await supabase.from('legacy_profiles').select('*');
-		return legacyProfiles;
-	};
-
-	return { profiles: fetchProfiles(), legacyProfiles: fetchLegacyProfiles() };
+	return { profiles: fetchProfiles() };
 };
