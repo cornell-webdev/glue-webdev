@@ -42,7 +42,7 @@
 		{/if}
 
 		<div class="mt-12 flex justify-center lg:mt-20">
-			<img class="max-w-3xl rounded-xl object-cover" src={mainImageSrc} load="eager" />
+			<img class="rounded-xl object-cover" src={mainImageSrc} load="eager" />
 		</div>
 	</div>
 </div>
