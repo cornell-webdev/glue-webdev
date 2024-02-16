@@ -92,7 +92,7 @@
 		photoPath={groupPhotoSrc} />
 	<SectionInfo
 		isReversed={true}
-		overline="Step 2 - Application"
+		overline="Step 2 - Registration"
 		heading="Apply as a team for the semester cohort"
 		desc="With the teammates you formed during the team finding socials, apply as a team. We are looking for genuine passion in the idea, strong design and software engineering skills."
 		photoPath={applyCohortSrc} />
@@ -148,13 +148,13 @@
 			rel="noreferrer"
 			class="outline-none">
 			<button
-				class="border-base-content/10 hover:border-base-content/30 mt-6 flex w-full rounded-lg border-2 p-3 text-left">
+				class="mt-6 flex w-full rounded-lg border-2 border-base-content/10 p-3 text-left hover:border-base-content/30">
 				<img class="mr-4 mt-1 w-10" src={instagramLogoSrc} />
 				<div class="">
 					<div class="flex items-center">
 						<h4 class="text-lg font-bold">Instagram</h4>
 					</div>
-					<p class="text-base-content/80 mt-0.5 text-sm">
+					<p class="mt-0.5 text-sm text-base-content/80">
 						Keep up to date by following up on Instagram. We make regular announcements and progress
 						updates through posts and stories.
 					</p>
@@ -167,13 +167,13 @@
 			rel="noreferrer"
 			class="outline-none">
 			<button
-				class="border-base-content/10 hover:border-base-content/30 mt-3 flex w-full rounded-lg border-2 p-3 text-left">
-				<img class="bg-base-content/10 mr-4 mt-1 w-10 rounded-xl" src={slackLogoSrc} />
+				class="mt-3 flex w-full rounded-lg border-2 border-base-content/10 p-3 text-left hover:border-base-content/30">
+				<img class="mr-4 mt-1 w-10 rounded-xl bg-base-content/10" src={slackLogoSrc} />
 				<div class="">
 					<div class="flex items-center">
 						<h4 class="text-lg font-bold">Slack (public)</h4>
 					</div>
-					<p class="text-base-content/80 mt-0.5 text-sm">
+					<p class="mt-0.5 text-sm text-base-content/80">
 						We make more detailed announcements for active members on Slack. Feel free to join our
 						Slack and listen in on what's going on!
 					</p>
