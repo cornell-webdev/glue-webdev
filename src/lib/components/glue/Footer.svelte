@@ -19,7 +19,6 @@
 					href: 'https://join.slack.com/t/cornellwebdev/shared_invite/zt-1nv81i4zb-4vLR4fE4lidPqh4sxgs7jw',
 					isNewTab: true
 				},
-				{ label: 'LinkTree', href: 'https://linktr.ee/cornellwebdev', isNewTab: true }
 			]
 		}
 	];
