@@ -6,7 +6,7 @@
 	import TextInput from '$lib/components/glue/TextInput.svelte';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { onMount } from 'svelte';
-	import imageCompression from 'browser-image-compression';
+	import Compressor from 'compressorjs';
 
 	$: ({ profile, supabase } = $page.data);
 
@@ -71,42 +71,51 @@
 	};
 
 	const uploadPhoto = async (event: Event & { currentTarget: HTMLInputElement }) => {
-		isUploadLoading = true;
 		const avatarFile = event?.currentTarget?.files?.[0];
+		if (!avatarFile) return;
 
-		if (avatarFile) {
-			const options = {
-				maxSizeMB: 2,
-				maxWidthOrHeight: 256,
-				useWebWorker: true
-			};
+		isUploadLoading = true;
 
-			const compressedFile = await imageCompression(avatarFile, options);
+		new Compressor(avatarFile, {
+			quality: 0.6,
+			convertSize: 1,
+			success: async (compressedFile) => {
+				try {
+					const { data: photo, error: storageError } = await $page?.data?.supabase.storage
+						.from('avatars')
+						.upload(`${$page?.data?.session?.user?.id}/${avatarFile?.name}`, compressedFile, {
+							cacheControl: '3600',
+							upsert: true
+						});
+					if (storageError || !photo?.path) throw new Error();
 
-			const { data: photo, error } = await $page?.data?.supabase.storage
-				.from('avatars')
-				.upload(`${$page?.data?.session?.user?.id}/${avatarFile?.name}`, compressedFile, {
-					cacheControl: '3600',
-					upsert: true
-				});
+					let avatarPath = photo?.path;
+					const { data: publicUrlData } = $page?.data?.supabase.storage
+						.from('avatars')
+						.getPublicUrl(avatarPath);
+					let avatarUrl = publicUrlData?.publicUrl || '';
 
-			if (photo?.path) {
-				let avatarPath = photo?.path;
-				const { data: publicUrlData } = $page?.data?.supabase.storage
-					.from('avatars')
-					.getPublicUrl(avatarPath);
-				let avatarUrl = publicUrlData?.publicUrl || '';
-				const { error } = await supabase
-					.from('profiles')
-					.update({ avatarUrl })
-					.eq('id', profile?.id)
-					.select();
+					const { error: updateProfileError } = await supabase
+						.from('profiles')
+						.update({ avatarUrl })
+						.eq('id', profile?.id)
+						.select();
 
-				if (error) toast.push('❌ There was an error with saving your profile');
-				else toast.push('✅ Profile saved');
+					if (updateProfileError) throw new Error(updateProfileError);
+
+					toast.push('✅ Profile saved');
+				} catch (error) {
+					toast.push('❌ There was an error with saving your profile');
+					// TODO: log error message on Sentry
+				}
+
+				isUploadLoading = false;
+			},
+			error(err) {
+				toast.push('❌ There was an error with saving your profile');
+				isUploadLoading = false;
 			}
-		}
-		isUploadLoading = false;
+		});
 	};
 </script>
 
