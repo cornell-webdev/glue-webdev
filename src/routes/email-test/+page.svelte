@@ -22,4 +22,4 @@
 	};
 </script>
 
-<button class="btn-primary btn" on:click={sendTestEmail}>Send test email</button>
+<button class="btn btn-primary" on:click={sendTestEmail}>Send test email</button>
