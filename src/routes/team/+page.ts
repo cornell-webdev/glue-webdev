@@ -3,7 +3,11 @@ import type { Load } from '@sveltejs/kit';
 export const load: Load = async ({ parent }) => {
 	const fetchProfileGroups = async () => {
 		const { supabase } = await parent();
-		const { data: profiles } = await supabase.from('profiles').select('*');
+		const { data: profiles } = await supabase
+			.from('profiles')
+			.select('*')
+			.eq('isInitialized', true);
+
 		const profileGroupDict = {};
 		for (const profile of profiles) {
 			const { cohort } = profile;
