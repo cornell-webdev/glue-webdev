@@ -140,7 +140,7 @@
 							<span class="loading loading-spinner loading-sm" />
 						</div>
 					{:else}
-						<img class="mt-2 h-40 w-40 rounded" src={profile?.avatarUrl} />
+						<img class="mt-2 h-40 w-40 rounded object-cover" src={profile?.avatarUrl} />
 					{/if}
 
 					<div class="mt-4">
