@@ -11,6 +11,8 @@
 	export let showError: boolean = false;
 	export let errorLabel: string = '';
 
+	console.log(showError)
+
 	export let initialValue: string = '';
 
 	// change input

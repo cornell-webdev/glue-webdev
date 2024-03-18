@@ -10,55 +10,31 @@
 	import { onMount } from 'svelte';
 	import { toast } from '@zerodevx/svelte-toast';
 
+	import type {Member, ErrorType, Project, ProjectFormValues} from '$lib/types/project';
+
 	// img storage paths
 	// file data
-	// TODO: can be cleaned up, lots of vars
 	let imgPath = '';
 	let imgUrl = '';
 	let members: Member[] = [];
-	let project: Project | undefined;
 	let selectedImage: string | null = null;
 	let fileInput: HTMLInputElement | null = null;
 
-	type UpdateErrorType = {
-		nameError: boolean;
-		imgError: boolean;
-		duplicateProject: boolean;
-	};
 
 	let updateErrorStates = {
 		nameError: false,
 		imgError: false,
 		duplicateProject: false
-	} as UpdateErrorType;
+	} as ErrorType;
 
 	let submitting = false;
-
-	type Project = {
-		id: string;
-		name: string;
-		description: string;
-		imgUrl: string;
-	};
+	
 
 	// supabase data
 	export let data;
 	import { page } from '$app/stores';
 
 	let projectId: string;
-
-	type Member = {
-		value: string;
-		label: string;
-		canRemove: boolean;
-	};
-
-	type ProjectFormValues = {
-		selectedMembers: Member[];
-		projectName?: string;
-		projectDescription?: string;
-		projectImage?: string;
-	};
 
 	let projectFormValues = {
 		selectedMembers: [],
@@ -102,9 +78,7 @@
 			.select('id, name, description, imgUrl, profiles ( id, firstName, lastName )')
 			.eq('id', projectId);
 
-		console.log(projectData);
-
-		project = projectData ? projectData[0] : undefined;
+		let project = projectData ? projectData[0] : undefined;
 
 		// set project form values
 		projectFormValues.projectName = project?.name;
@@ -155,6 +129,7 @@
 					upsert: true
 				});
 
+				
 			if (photo?.path) {
 				imgPath = photo?.path;
 				const { data: publicUrlData } = data?.supabase.storage
@@ -173,17 +148,15 @@
 			.select('profile_id')
 			.eq('project_id', projectId);
 
-		console.log(existingRelations);
-
 		if (fetchError) throw fetchError;
 
-		const existingMemberIds = new Set(existingRelations?.map((relation) => relation.userId));
+		const existingMemberIds = new Set(existingRelations?.map((relation) => relation.profile_id));
 		const selectedMemberIds = new Set(
 			projectFormValues.selectedMembers.map((member) => member.value)
 		);
 
 		const membersToRemove = existingRelations?.filter(
-			(relation) => !selectedMemberIds.has(relation.userId)
+			(relation) => !selectedMemberIds.has(relation.profile_id)
 		);
 		const membersToAdd = projectFormValues.selectedMembers.filter(
 			(member) => !existingMemberIds.has(member.value)
@@ -216,8 +189,6 @@
 		submitting = true;
 
 		try {
-			// validate the form data
-			await updateSchema.validate(projectFormValues, { abortEarly: false });
 
 			console.log(projectFormValues)
 			if (projectFormValues.projectName) {
@@ -237,7 +208,23 @@
 				updateErrorStates.nameError = true;
 			}
 
-			
+			if (fileInput && fileInput.files && fileInput.files.length > 0) {
+				const file = fileInput.files[0];
+
+				if (file && projectFormValues.projectName) {
+					const imageUrl = await uploadPhoto(projectFormValues.projectName, file);
+					if (imageUrl) {
+						projectFormValues.projectImage = imageUrl;
+						updateErrorStates.imgError = false;
+					} 
+				} else {
+					updateErrorStates.imgError = true;
+					throw new Error('Image upload failed');
+				}
+			}
+
+			// validate the form data
+			await updateSchema.validate(projectFormValues, { abortEarly: false });
 
 			if (
 				updateErrorStates.nameError ||
@@ -248,10 +235,6 @@
 			}
 
 			await handleProjectMembers();
-
-			console.log('here')
-			console.log(projectFormValues)
-			console.log(projectId)
 			
 			const { data: updatedData, error: updateError } = await data?.supabase
 				.from('projects')
@@ -261,11 +244,10 @@
 					imgUrl: projectFormValues.projectImage
 				})
 				.eq('id', projectId);
-			console.log(updatedData)
 			if (updateError) throw updateError;
 
 			toast.push('✅ Your project was successfully updated');
-			// await goto(`/project/${projectId}`);
+			await goto(`/project/${projectId}`);
 		} catch (error) {
 			toast.push(`❌ Error updating project`, {
 				theme: { '--toastBackground': '#F56565', '--toastBarBackground': '#C53030' }
@@ -342,9 +324,9 @@
 							accept=".png,.jpeg,.jpg,.webp"
 							name="imgUpload" />
 
-						{#if project?.imgUrl || selectedImage}
+						{#if selectedImage || projectFormValues.projectImage}
 							<img
-								src={project?.imgUrl ?? selectedImage}
+								src={selectedImage ?? projectFormValues.projectImage}
 								class="mt-6 flex h-24 w-24 items-start justify-start rounded-2xl border-secondary"
 								alt="input photo" />
 						{/if}
