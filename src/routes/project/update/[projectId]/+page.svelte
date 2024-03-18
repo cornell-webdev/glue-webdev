@@ -13,25 +13,28 @@
 	import type {Member, ErrorType, Project, ProjectFormValues} from '$lib/types/project';
 
 	// img storage paths
+	// file data
 	let imgPath = '';
 	let imgUrl = '';
+	let members: Member[] = [];
+	let selectedImage: string | null = null;
+	let fileInput: HTMLInputElement | null = null;
 
-	let createErrorStates = {
+
+	let updateErrorStates = {
 		nameError: false,
 		imgError: false,
 		duplicateProject: false
 	} as ErrorType;
 
-	// file data
-	let selectedImage: string | null = null;
-	let fileInput: HTMLInputElement | null = null;
-
 	let submitting = false;
+	
 
 	// supabase data
 	export let data;
+	import { page } from '$app/stores';
 
-	let members: Member[] | undefined = [];
+	let projectId: string;
 
 	let projectFormValues = {
 		selectedMembers: [],
@@ -40,7 +43,7 @@
 		projectImage: ''
 	} as ProjectFormValues;
 
-	const createSchema = yup.object().shape({
+	const updateSchema = yup.object().shape({
 		members: yup.array().of(
 			yup.object().shape({
 				value: yup.string().required(),
@@ -57,26 +60,37 @@
 	});
 
 	onMount(async () => {
+		projectId = window.location.pathname.split('/').pop() || '';
 		const { data: allMembers } = await data?.supabase
 			.from('profiles')
 			.select('id,firstName, lastName');
 
-		members = allMembers?.map((member) => ({
-			value: member.id,
-			label: `${member.firstName} ${member.lastName}`,
-			canRemove: true
-		}));
+		if (allMembers) {
+			members = allMembers?.map((member) => ({
+				value: member.id,
+				label: `${member.firstName} ${member.lastName}`,
+				canRemove: true
+			}));
+		}
 
-		const { data: currentMember } = await data?.supabase
-			.from('profiles')
-			.select('id,firstName, lastName')
-			.eq('id', data?.session?.user.id);
+		const { data: projectData } = await data?.supabase
+			.from('projects')
+			.select('id, name, description, imgUrl, profiles ( id, firstName, lastName )')
+			.eq('id', projectId);
 
-		projectFormValues.selectedMembers = currentMember?.map((member) => ({
-			value: member.id,
-			label: `${member.firstName} ${member.lastName}`,
-			canRemove: false
-		})) ?? [];
+		let project = projectData ? projectData[0] : undefined;
+
+		// set project form values
+		projectFormValues.projectName = project?.name;
+		projectFormValues.projectDescription = project?.description;
+		projectFormValues.projectImage = project?.imgUrl;
+		projectFormValues.selectedMembers = projectData
+			? projectData[0].profiles?.map((member) => ({
+					value: member.id,
+					label: `${member.firstName} ${member.lastName}`,
+					canRemove: true
+			  }))
+			: [];
 	});
 
 	// handle image upload
@@ -89,14 +103,11 @@
 				reader.onload = function (e) {
 					if (e.target && e.target.result) {
 						selectedImage = e.target.result as string;
-						createErrorStates.imgError = false;
 					}
 				};
 
 				reader.readAsDataURL(file);
-			} 
-		} else {
-			createErrorStates.imgError = true;
+			}
 		}
 	};
 
@@ -118,11 +129,7 @@
 					upsert: true
 				});
 
-			if (error) {
-				console.error('Upload error:', error);
-				return undefined;
-			}
-
+				
 			if (photo?.path) {
 				imgPath = photo?.path;
 				const { data: publicUrlData } = data?.supabase.storage
@@ -135,8 +142,35 @@
 		}
 	};
 
-	async function handleProjectMembers(projectId: string) {
-		const membersToAdd = projectFormValues.selectedMembers
+	async function handleProjectMembers() {
+		const { data: existingRelations, error: fetchError } = await data?.supabase
+			.from('projectuserrelation')
+			.select('profile_id')
+			.eq('project_id', projectId);
+
+		if (fetchError) throw fetchError;
+
+		const existingMemberIds = new Set(existingRelations?.map((relation) => relation.profile_id));
+		const selectedMemberIds = new Set(
+			projectFormValues.selectedMembers.map((member) => member.value)
+		);
+
+		const membersToRemove = existingRelations?.filter(
+			(relation) => !selectedMemberIds.has(relation.profile_id)
+		);
+		const membersToAdd = projectFormValues.selectedMembers.filter(
+			(member) => !existingMemberIds.has(member.value)
+		);
+
+		for (const member of membersToRemove) {
+			const { error: deleteError } = await data?.supabase
+				.from('projectuserrelation')
+				.delete()
+				.match({ profile_id: member.profile_id, project_id: projectId });
+
+			if (deleteError) throw deleteError;
+		}
+
 		const newRelations = membersToAdd.map((member) => ({
 			profile_id: member.value,
 			project_id: projectId
@@ -151,79 +185,77 @@
 		}
 	}
 
-	async function handleProjectCreate() {
+	async function handleProjectUpdate(projectId: string) {
 		submitting = true;
 
 		try {
 
+			console.log(projectFormValues)
 			if (projectFormValues.projectName) {
-				createErrorStates.nameError = false;
+				updateErrorStates.nameError = false;
 				const { data: duplicateData } = await data?.supabase
 					.from('projects')
 					.select('name')
-					.eq('name', projectFormValues.projectName);
+					.eq('name', projectFormValues.projectName)
+					.neq('id', projectId);
 
 				if (duplicateData && duplicateData.length > 0) {
-					createErrorStates.duplicateProject = true;
+					updateErrorStates.duplicateProject = true;
 				} else {
-					createErrorStates.duplicateProject = false;
+					updateErrorStates.duplicateProject = false;
 				}
 			} else {
-				createErrorStates.nameError = true;
+				updateErrorStates.nameError = true;
 			}
 
-			
 			if (fileInput && fileInput.files && fileInput.files.length > 0) {
 				const file = fileInput.files[0];
 
 				if (file && projectFormValues.projectName) {
 					const imageUrl = await uploadPhoto(projectFormValues.projectName, file);
-
 					if (imageUrl) {
 						projectFormValues.projectImage = imageUrl;
-						createErrorStates.imgError = false;
+						updateErrorStates.imgError = false;
 					} 
+				} else {
+					updateErrorStates.imgError = true;
+					throw new Error('Image upload failed');
 				}
-			} else {
-				createErrorStates.imgError = true;
-				throw new Error('Image upload error');
 			}
 
-			// validate the form data after img is added
-			await createSchema.validate(projectFormValues, { abortEarly: false });
+			// validate the form data
+			await updateSchema.validate(projectFormValues, { abortEarly: false });
 
 			if (
-				createErrorStates.nameError ||
-				createErrorStates.imgError ||
-				createErrorStates.duplicateProject
+				updateErrorStates.nameError ||
+				updateErrorStates.imgError ||
+				updateErrorStates.duplicateProject
 			) {
 				throw new Error('Validation error');
 			}
 
-			const { data: createdData, error: updateError } = await data?.supabase
+			await handleProjectMembers();
+			
+			const { data: updatedData, error: updateError } = await data?.supabase
 				.from('projects')
-				.insert({
+				.update({
 					name: projectFormValues.projectName,
 					description: projectFormValues.projectDescription,
 					imgUrl: projectFormValues.projectImage
-				}).select();
-		
+				})
+				.eq('id', projectId);
 			if (updateError) throw updateError;
-			
 
-			await handleProjectMembers(createdData[0].id);
-
-			toast.push('✅ Your project was successfully created');
-			await goto(`/project/${createdData[0].id}`);
+			toast.push('✅ Your project was successfully updated');
+			await goto(`/project/${projectId}`);
 		} catch (error) {
-			toast.push(`❌ Error creating project`, {
+			toast.push(`❌ Error updating project`, {
 				theme: { '--toastBackground': '#F56565', '--toastBarBackground': '#C53030' }
 			});
 		} finally {
 			submitting = false;
 		}
 	}
-
 </script>
 
 <PageContainer title="About us" isHoriPadding={false}>
@@ -238,9 +270,8 @@
 
 		<div class="ml-24 mt-8 flex w-2/3 flex-col gap-2 p-16">
 			<!-- heading -->
-			<h3 class="text-base font-semibold text-primary">{'Application → Build'}</h3>
-			<h1 class="text-3xl font-bold">Create a New Project</h1>
-			<p class=" mt-1 text-sm text-base-content/80">* indictates required field</p>
+			<h3 class="text-base font-semibold text-primary">{'Application → Update'}</h3>
+			<h1 class="text-3xl font-bold">Update Project</h1>
 
 			<!-- form section -->
 			<div class="flex w-full max-w-full flex-col gap-2 py-2">
@@ -252,19 +283,20 @@
 					options={members || []}
 					bind:selectedOptions={projectFormValues.selectedMembers}
 					heading="Members"
-					placeholder="Search Members" />
+					placeholder="Search to add members" />
 
 				<SectionInput
 					heading="Name"
 					type="text"
 					placeholder="Name"
 					required={true}
+					initialValue={projectFormValues.projectName}
 					on:input={(e) => (projectFormValues.projectName = e.detail)}
 					inputName="projName"
-					showError={createErrorStates.nameError || createErrorStates.duplicateProject}
-					errorLabel={createErrorStates.nameError
+					showError={updateErrorStates.nameError || updateErrorStates.duplicateProject}
+					errorLabel={updateErrorStates.nameError
 						? 'Enter a valid Project Name'
-						: createErrorStates.duplicateProject
+						: updateErrorStates.duplicateProject
 						? 'Duplicate Project Entered'
 						: ''} />
 
@@ -272,16 +304,14 @@
 					heading="Description"
 					type="textarea"
 					placeholder="Description"
+					initialValue={projectFormValues.projectDescription}
 					on:input={(e) => (projectFormValues.projectDescription = e.detail)}
 					inputName="projDesc" />
 
 				<div class="flex flex-col gap-1">
-				
-						<label class="label">
-							<span class="label-text text-base font-semibold">Project Image*</span>
-						</label>
-					
-
+					<label class="label">
+						<span class="label-text text-base font-semibold">Project Image*</span>
+					</label>
 
 					<div class="flex flex-col items-start justify-start">
 						<input
@@ -289,14 +319,14 @@
 							on:change={handleImgChange}
 							type="file"
 							class={`file-input file-input-bordered file-input-sm w-full max-w-xs ${
-								createErrorStates.imgError && 'border-2 border-red-400'
+								updateErrorStates.imgError && 'border-2 border-red-400'
 							}`}
-							accept=".png,.jpeg,.jpg"
+							accept=".png,.jpeg,.jpg,.webp"
 							name="imgUpload" />
 
-						{#if selectedImage}
+						{#if selectedImage || projectFormValues.projectImage}
 							<img
-								src={selectedImage}
+								src={selectedImage ?? projectFormValues.projectImage}
 								class="mt-6 flex h-24 w-24 items-start justify-start rounded-2xl border-secondary"
 								alt="input photo" />
 						{/if}
@@ -306,11 +336,11 @@
 				<!-- submission -->
 				<button
 					class="btn btn-primary mt-8 flex w-full flex-row"
-					on:click={() => handleProjectCreate()}>
+					on:click={() => handleProjectUpdate(projectId)}>
 					{#if submitting}
 						<span class="loading loading-spinner" />
 					{/if}
-					Submit
+					Update
 				</button>
 			</div>
 		</div>

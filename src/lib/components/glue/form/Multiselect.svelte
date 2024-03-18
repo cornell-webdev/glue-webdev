@@ -65,7 +65,7 @@
 				class=" flex w-fit items-center justify-center rounded-md bg-zinc-200 px-2 text-sm font-medium text-base-content dark:bg-zinc-500">
 				{options.label}
 				<button
-					class={`ml-1  ${options.canRemove && 'hidden'}`}
+					class={`ml-1  ${options.canRemove ? 'flex' : 'hidden'}`}
 					on:click={() => removeOption(options.value)}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -96,11 +96,11 @@
 	{#if showDropdown}
 		<div
 			bind:this={dropdownElement}
-			class="absolute left-0 top-full z-10 mt-2 max-h-48 w-full overflow-scroll rounded-md border bg-secondary-content shadow-lg">
-			<ul class="m-0 list-none p-0">
+			class="absolute left-0 top-full z-10 mt-4 max-h-48 w-full overflow-scroll rounded-md bg-secondary-content border-2 dark:border-zinc-600 shadow">
+			<ul class=" list-none p-1">
 				{#each filteredOptions as option}
 					<li
-						class="cursor-pointer border-b p-2 text-sm hover:bg-gray-200"
+						class="cursor-pointer p-2 text-sm menu bg-base-100 rounded-md w-full hover:bg-primary-content dark:hover:bg-zinc-600"
 						on:click={() => addOption(option)}>
 						{option.label}
 					</li>
