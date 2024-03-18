@@ -59,7 +59,16 @@
 
 		const { error } = await supabase
 			.from('profiles')
-			.update({ firstName, lastName, cohort, gradYear, isActive, major, title })
+			.update({
+				firstName,
+				lastName,
+				cohort,
+				gradYear,
+				isActive,
+				major,
+				title,
+				isInitialized: true
+			})
 			.eq('id', profile?.id)
 			.select();
 

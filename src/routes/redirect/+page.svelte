@@ -14,7 +14,7 @@
 			const url = `${$page.url.origin}${redirectTo || '/'}`;
 			goto(url);
 		} else {
-			goto('/setup-profile');
+			goto('/profile');
 		}
 	}
 	$: authError = new URLSearchParams($page?.url.hash).get('error_description');

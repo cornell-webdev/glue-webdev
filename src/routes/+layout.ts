@@ -33,7 +33,8 @@ export const load: LayoutLoad = async ({ fetch, data, depends, url }) => {
 			.insert([
 				{
 					id: session?.user?.id,
-					avatarUrl: session?.user?.user_metadata?.avatar_url
+					avatarUrl: session?.user?.user_metadata?.avatar_url,
+					isInitialized: false
 				}
 			])
 			.select('*')
