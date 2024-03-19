@@ -21,4 +21,5 @@
 		linkLabel="Get started"
 		linkHref="/" />
 	<div>Hello World</div>
+	<div>This is a test</div>
 </PageContainer>
