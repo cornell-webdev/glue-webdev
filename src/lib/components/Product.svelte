@@ -6,22 +6,22 @@
 
 	let element;
 	let intersecting;
-	let color = '179,27,27';
-	let colorDark = '144,49,49';
+	let brandColor = '144,49,49';
 </script>
 
 <div class="my-[6rem]">
 	<section
 		class="{intersecting
-			? 'is-visible before:opacity-100 before:[transform:rotate(180deg)_scale(3)]'
+			? 'is-visible before:opacity-100 before:[transform:rotate(180deg)_scale(3)] md:before:[transform:rotate(180deg)_scale(2)]'
 			: 'before:rotate-180 before:opacity-40'}
-    is-visible after:bg-[radial-gradient(ellipse_100%_40%_at_50%_60%,rgba(var(--feature-color),0.1),transparent) relative flex flex-col items-center
+    is-visible after:bg-[radial-gradient(ellipse_100%_40%_at_50%_60%,var(--brand-color),transparent) relative flex flex-col items-center
   overflow-x-clip before:pointer-events-none before:absolute before:h-[400px] before:w-full
-  before:bg-[conic-gradient(from_90deg_at_80%_50%,#000212,rgb(var(--feature-color-dark))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--feature-color-dark)),#000212)] before:bg-no-repeat
-  before:opacity-100 before:transition-[transform,opacity] before:duration-500 before:ease-in
+  before:bg-[conic-gradient(from_90deg_at_80%_50%,var(--shadow-dark),rgb(var(--brand-color))),conic-gradient(from_270deg_at_20%_50%,rgb(var(--brand-color)),var(--shadow-dark))]
+  before:bg-no-repeat before:opacity-100 before:transition-[transform,opacity] before:duration-500 before:ease-in
   before:[mask:radial-gradient(100%_50%_at_center_center,_black,_transparent)] before:[background-size:50%_100%,50%_100%]
-  before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute after:inset-0"
-		style="--feature-color: {color}; --feature-color-dark: {colorDark};">
+  before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute
+  after:inset-0"
+		style="--brand-color: {brandColor}; --shadow-dark: #000212;">
 		<div class="z-10 mt-[6rem] mb-16 flex w-full flex-col items-center">
 			<div
 				class="{intersecting
@@ -29,7 +29,7 @@
 					: 'translate-y-[3rem]'} [transition:transform_1000ms_cubic-bezier(0.3,_1.17,_0.55,_0.99)_0s]">
 				<h2
 					class="pt-[12rem] text-center text-4xl font-extrabold !leading-snug tracking-tight md:text-6xl">
-					Subleting has
+					Subletting has
 					<br />
 					never been easier
 				</h2>
