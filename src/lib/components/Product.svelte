@@ -1,6 +1,7 @@
 <script lang="ts">
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import cornletHomeSrc from '$lib/assets/cornlet-home.jpg';
+	import cornletIconSrc from '$lib/assets/cornlet-icon.svg';
 	import IconOpenInNew from '$lib/icons/glue/IconOpenInNew.svelte';
 	import Saos from 'saos';
 
@@ -22,21 +23,33 @@
   before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute
   after:inset-0"
 		style="--brand-color: {brandColor}; --shadow-dark: #000212;">
-		<div class="z-10 mt-[6rem] mb-16 flex w-full flex-col items-center">
+		<div class="z-10 mt-[6rem] mb-16">
 			<div
 				class="{intersecting
 					? 'translate-y-0'
-					: 'translate-y-[3rem]'} [transition:transform_1000ms_cubic-bezier(0.3,_1.17,_0.55,_0.99)_0s]">
+					: 'translate-y-[3rem]'} flex w-full flex-col items-center pt-[12rem] [transition:transform_1000ms_cubic-bezier(0.3,_1.17,_0.55,_0.99)_0s] ">
+				<div class="flex items-center space-x-2 rounded-full bg-base-100 py-2 px-4 opacity-80">
+					<img class="h-4 w-4 rounded-full" src={cornletIconSrc} />
+					<p class="text-xs">Cornlet</p>
+				</div>
+
 				<h2
-					class="pt-[12rem] text-center text-4xl font-extrabold !leading-snug tracking-tight md:text-6xl">
+					class="mt-4 text-center text-4xl font-extrabold !leading-tight tracking-tight md:text-6xl">
 					Subletting has
 					<br />
 					never been easier
 				</h2>
 
-				<div class="mt-6 flex justify-center">
+				<p class="mt-6 w-[80%] text-center text-sm leading-relaxed text-base-content/70">
+					Cornlet is a web-based platform where Cornell students can advertise or look for sublets.
+					Finding a sublet doesn't have to be a hassle.
+				</p>
+
+				<div class="mt-10">
 					<a href="https://www.cornlet.com" target="_blank" rel="noreferrer">
-						<button class="btn-secondary btn">Visit Cornlet <IconOpenInNew /></button>
+						<button class="btn-secondary btn-sm btn text-xs">
+							Visit Cornlet <IconOpenInNew />
+						</button>
 					</a>
 				</div>
 			</div>
