@@ -8,6 +8,29 @@
 	let element;
 	let intersecting;
 	let brandColor = '144,49,49';
+	let brandColorBright = '235,55,55';
+	let features = [
+		{
+			title: 'New feature here',
+			desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
+			imgSrc: cornletHomeSrc
+		},
+		{
+			title: 'New feature here',
+			desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
+			imgSrc: cornletHomeSrc
+		},
+		{
+			title: 'New feature here',
+			desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
+			imgSrc: cornletHomeSrc
+		},
+		{
+			title: 'New feature here',
+			desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
+			imgSrc: cornletHomeSrc
+		}
+	];
 </script>
 
 <div class="my-[6rem]">
@@ -22,7 +45,7 @@
   before:[mask:radial-gradient(100%_50%_at_center_center,_black,_transparent)] before:[background-size:50%_100%,50%_100%]
   before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute
   after:inset-0"
-		style="--brand-color: {brandColor}; --shadow-dark: #000212;">
+		style="--brand-color: {brandColor}; --shadow-dark: #000212; --brand-color-bright: {brandColorBright};">
 		<div class="z-10 mt-[6rem] mb-16">
 			<div
 				class="{intersecting
@@ -52,31 +75,38 @@
 						</button>
 					</a>
 				</div>
-			</div>
 
-			<IntersectionObserver {element} bind:intersecting threshold={0.5}>
-				<div bind:this={element} />
-			</IntersectionObserver>
+				<IntersectionObserver {element} bind:intersecting threshold={0.5}>
+					<div bind:this={element} />
+				</IntersectionObserver>
 
-			<div class="mt-20 flex w-full justify-center">
-				<img class="w-[80%] rounded-xl" src={cornletHomeSrc} />
-			</div>
+				<img class="mt-20 w-[80%] rounded-xl" src={cornletHomeSrc} />
 
-			<Saos animation={'fade-in 0.5s cubic-bezier(0.470, 0.000, 0.745, 0.715) both'} once={false}>
-				<div class="mt-48 max-w-lg px-6">
-					<p
-						class="mx-auto mt-10 max-w-xl text-center text-lg font-normal leading-relaxed text-base-content/70 md:text-lg">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente velit mollitia
-						repellendus illum pariatur atque repellat qui, cum fugit iste.
-					</p>
+				<p class="mt-24 w-[80%] text-center text-lg leading-relaxed text-base-content/70">
+					Cornlet allows Cornell students to give and find sublets on a centralized, web-based
+					platform. Finding sublets no longer has to be through word-of-mouth.
+				</p>
 
-					<p
-						class="mx-auto mt-10 max-w-xl text-center text-lg font-normal leading-relaxed text-base-content/70 md:text-lg">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente velit mollitia
-						repellendus illum pariatur atque repellat qui, cum fugit iste.
-					</p>
+				<div class="mt-32 grid w-full grid-cols-1 gap-8 px-4">
+					{#each features as feature}
+						<div
+							class="relative h-[400px] w-full overflow-hidden rounded-xl border
+          border-base-content/20 bg-base-200 px-8 pt-10 after:absolute
+          after:inset-0 after:box-border after:rounded-xl after:border after:border-[rgb(var(--brand-color-bright))]
+          after:[mask-image:linear-gradient(to_bottom_right,_black_0%,_transparent_40%,_transparent_60%,_black_100%)]">
+							<p class="text-2xl font-extrabold leading-tight text-base-content/90">
+								{feature?.title}
+							</p>
+							<p class="text-md mt-3 leading-tight text-base-content/70">
+								{feature?.desc}
+							</p>
+							<img
+								class="width-[200%] mt-12 max-w-[200%] rounded-xl border border-base-content/10 opacity-90"
+								src={feature?.imgSrc} />
+						</div>
+					{/each}
 				</div>
-			</Saos>
+			</div>
 		</div>
 	</section>
 </div>
