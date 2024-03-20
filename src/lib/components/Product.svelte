@@ -63,14 +63,15 @@
 					never been easier
 				</h2>
 
-				<p class="mt-6 w-[80%] text-center text-sm leading-relaxed text-base-content/70">
+				<p
+					class="mt-6 w-[80%] max-w-lg text-center text-sm leading-relaxed text-base-content/70 md:text-lg">
 					Cornlet is a web-based platform where Cornell students can advertise or look for sublets.
 					Finding a sublet doesn't have to be a hassle.
 				</p>
 
 				<div class="mt-10">
 					<a href="https://www.cornlet.com" target="_blank" rel="noreferrer">
-						<button class="btn-secondary btn-sm btn text-xs">
+						<button class="btn-secondary btn-sm btn text-xs md:btn-md">
 							Visit Cornlet <IconOpenInNew />
 						</button>
 					</a>
@@ -80,31 +81,34 @@
 					<div bind:this={element} />
 				</IntersectionObserver>
 
-				<img class="mt-20 w-[80%] rounded-xl" src={cornletHomeSrc} />
+				<img class="mt-20 w-[80%] max-w-2xl rounded-xl" src={cornletHomeSrc} />
 
-				<p class="mt-24 w-[80%] text-center text-lg leading-relaxed text-base-content/70">
+				<p
+					class="mt-24 w-[80%] max-w-xl text-center text-lg leading-relaxed text-base-content/70 md:my-48 md:text-2xl md:leading-loose">
 					Cornlet allows Cornell students to give and find sublets on a centralized, web-based
 					platform. Finding sublets no longer has to be through word-of-mouth.
 				</p>
 
-				<div class="mt-32 grid w-full grid-cols-1 gap-8 px-4">
-					{#each features as feature}
-						<div
-							class="relative h-[400px] w-full overflow-hidden rounded-xl border
+				<div class="flex w-full justify-center">
+					<div class="mt-32 grid w-full max-w-4xl grid-cols-1 gap-8 px-4 md:grid-cols-2">
+						{#each features as feature}
+							<div
+								class="relative h-[400px] w-full overflow-hidden rounded-xl border
           border-base-content/20 bg-base-200 px-8 pt-10 after:absolute
           after:inset-0 after:box-border after:rounded-xl after:border after:border-[rgb(var(--brand-color-bright))]
           after:[mask-image:linear-gradient(to_bottom_right,_black_0%,_transparent_40%,_transparent_60%,_black_100%)]">
-							<p class="text-2xl font-extrabold leading-tight text-base-content/90">
-								{feature?.title}
-							</p>
-							<p class="text-md mt-3 leading-tight text-base-content/70">
-								{feature?.desc}
-							</p>
-							<img
-								class="width-[200%] mt-12 max-w-[200%] rounded-xl border border-base-content/10 opacity-90"
-								src={feature?.imgSrc} />
-						</div>
-					{/each}
+								<p class="text-2xl font-extrabold leading-tight text-base-content/90">
+									{feature?.title}
+								</p>
+								<p class="text-md mt-3 leading-tight text-base-content/70">
+									{feature?.desc}
+								</p>
+								<img
+									class="width-[200%] mt-12 max-w-[200%] rounded-xl border border-base-content/10 opacity-90"
+									src={feature?.imgSrc} />
+							</div>
+						{/each}
+					</div>
 				</div>
 			</div>
 		</div>
