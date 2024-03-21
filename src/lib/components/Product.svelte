@@ -3,6 +3,7 @@
 	import cornletHomeSrc from '$lib/assets/cornlet-home.jpg';
 	import cornletIconSrc from '$lib/assets/cornlet-icon.svg';
 	import IconOpenInNew from '$lib/icons/glue/IconOpenInNew.svelte';
+	import RadialGradient from './glue/landing/RadialGradient.svelte';
 
 	let element;
 	let intersecting;
@@ -83,7 +84,7 @@
 				<img class="mt-20 w-[80%] max-w-2xl rounded-xl" src={cornletHomeSrc} />
 
 				<h2
-					class="mt-48 text-center text-4xl font-extrabold !leading-tight tracking-tight md:text-6xl">
+					class="mt-48 text-center text-4xl font-extrabold !leading-tight tracking-tight md:text-5xl">
 					Subletting is no
 					<br />
 					longer a hassle
@@ -94,6 +95,10 @@
 					Cornlet allows Cornell students to give and find sublets on a centralized, web-based
 					platform.
 				</p>
+
+				<div class="hidden md:block">
+					<RadialGradient placement="left" />
+				</div>
 
 				<div class="mt-18 flex w-full justify-center">
 					<div class=" grid w-full max-w-4xl grid-cols-1 gap-8 px-4 md:grid-cols-2">
