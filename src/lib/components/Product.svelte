@@ -87,7 +87,7 @@
 						{#each features as feature}
 							<div
 								class="relative h-[400px] w-full overflow-hidden rounded-xl border
-          border-base-content/20 bg-base-200 px-8 pt-10 after:absolute
+          border-base-content/20 bg-base-300 px-8 pt-10 after:absolute
           after:inset-0 after:box-border after:rounded-xl after:border after:border-[rgb(var(--brand-color-bright))]
           after:[mask-image:linear-gradient(to_bottom_right,_black_0%,_transparent_40%,_transparent_60%,_black_100%)]">
 								<p class="text-2xl font-extrabold leading-tight text-base-content/90">
