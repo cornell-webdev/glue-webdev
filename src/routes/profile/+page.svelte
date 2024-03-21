@@ -142,7 +142,7 @@
 					<TextInput label="Position title" bind:value={title} />
 					<p class="text-xs text-base-content/70">ex) "Designer", "Software Engineer", "PM"</p>
 				</div>
-				<div class="mt-6 md:ml-24">
+				<div class="mt-6 ml-8 md:ml-24">
 					<p class="text-lg font-bold">Photo</p>
 					{#if isUploadLoading}
 						<div class="flex h-40 w-40 items-center justify-center">
