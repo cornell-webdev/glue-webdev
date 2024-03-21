@@ -3,7 +3,6 @@
 	import cornletHomeSrc from '$lib/assets/cornlet-home.jpg';
 	import cornletIconSrc from '$lib/assets/cornlet-icon.svg';
 	import IconOpenInNew from '$lib/icons/glue/IconOpenInNew.svelte';
-	import Saos from 'saos';
 
 	let element;
 	let intersecting;
@@ -83,14 +82,21 @@
 
 				<img class="mt-20 w-[80%] max-w-2xl rounded-xl" src={cornletHomeSrc} />
 
+				<h2
+					class="mt-48 text-center text-4xl font-extrabold !leading-tight tracking-tight md:text-6xl">
+					Subletting is no
+					<br />
+					longer a hassle
+				</h2>
+
 				<p
-					class="mt-24 w-[80%] max-w-xl text-center text-lg leading-relaxed text-base-content/70 md:my-48 md:text-2xl md:leading-loose">
+					class="mt-8 w-[70%] max-w-xl text-center text-sm leading-relaxed text-base-content/70 md:text-lg">
 					Cornlet allows Cornell students to give and find sublets on a centralized, web-based
-					platform. Finding sublets no longer has to be through word-of-mouth.
+					platform.
 				</p>
 
-				<div class="flex w-full justify-center">
-					<div class="mt-32 grid w-full max-w-4xl grid-cols-1 gap-8 px-4 md:grid-cols-2">
+				<div class="mt-18 flex w-full justify-center">
+					<div class=" grid w-full max-w-4xl grid-cols-1 gap-8 px-4 md:grid-cols-2">
 						{#each features as feature}
 							<div
 								class="relative h-[400px] w-full overflow-hidden rounded-xl border
