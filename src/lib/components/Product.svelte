@@ -97,7 +97,7 @@
 									{feature?.desc}
 								</p>
 								<img
-									class="width-[200%] mt-12 max-w-[200%] rounded-xl border border-base-content/10 opacity-90"
+									class="width-[130%] mt-12 max-w-[130%] rounded-xl border border-base-content/10 opacity-90"
 									src={feature?.imgSrc} />
 							</div>
 						{/each}

@@ -5,6 +5,10 @@
 	import Product from '$lib/components/Product.svelte';
 	import cornletHomeSrc from '$lib/assets/cornlet-home.jpg';
 	import cornletIconSrc from '$lib/assets/cornlet-icon.svg';
+	import cornletFeature1Src from '$lib/assets/cornlet-feature-1.jpg';
+	import cornletFeature2Src from '$lib/assets/cornlet-feature-2.jpg';
+	import cornletFeature3Src from '$lib/assets/cornlet-feature-3.jpg';
+	import cornletFeature4Src from '$lib/assets/cornlet-feature-4.jpg';
 	import revyIconSrc from '$lib/assets/revy-icon.svg';
 	import revyHomeSrc from '$lib/assets/revy-home.jpg';
 
@@ -32,24 +36,24 @@
 			secondTitle="A new and better way to sublet your place"
 			features={[
 				{
-					title: 'New feature here',
-					desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
-					imgSrc: cornletHomeSrc
+					title: 'Browse sublets',
+					desc: 'Explore a diverse array of available sublet options, ranging from cozy apartments to spacious homes.',
+					imgSrc: cornletFeature1Src
 				},
 				{
-					title: 'New feature here',
-					desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
-					imgSrc: cornletHomeSrc
+					title: 'Find your perfect sublet',
+					desc: 'Discover the ideal sublet tailored to your preferences and needs.',
+					imgSrc: cornletFeature2Src
 				},
 				{
-					title: 'New feature here',
-					desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
-					imgSrc: cornletHomeSrc
+					title: 'Sign it before everyone else',
+					desc: 'The sublet market can get competitive, especially for good deals.',
+					imgSrc: cornletFeature3Src
 				},
 				{
-					title: 'New feature here',
-					desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
-					imgSrc: cornletHomeSrc
+					title: 'Keep your location private',
+					desc: 'Keep your address secret to the public, until someone messages you.',
+					imgSrc: cornletFeature4Src
 				}
 			]} />
 
