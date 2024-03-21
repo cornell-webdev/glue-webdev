@@ -1,36 +1,21 @@
 <script lang="ts">
 	import IntersectionObserver from 'svelte-intersection-observer';
-	import cornletHomeSrc from '$lib/assets/cornlet-home.jpg';
-	import cornletIconSrc from '$lib/assets/cornlet-icon.svg';
 	import IconOpenInNew from '$lib/icons/glue/IconOpenInNew.svelte';
 	import RadialGradient from './glue/landing/RadialGradient.svelte';
 
+	export let brandColorRGB: string;
+	export let brandColorBrightRGB: string;
+	export let features = [];
+	export let projectName: string;
+	export let mainTitle: string;
+	export let description: string;
+	export let link: string;
+	export let iconUrl: string;
+	export let imgUrl: string;
+	export let secondTitle: string;
+
 	let element;
 	let intersecting;
-	let brandColor = '144,49,49';
-	let brandColorBright = '235,55,55';
-	let features = [
-		{
-			title: 'New feature here',
-			desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
-			imgSrc: cornletHomeSrc
-		},
-		{
-			title: 'New feature here',
-			desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
-			imgSrc: cornletHomeSrc
-		},
-		{
-			title: 'New feature here',
-			desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
-			imgSrc: cornletHomeSrc
-		},
-		{
-			title: 'New feature here',
-			desc: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, dolores!',
-			imgSrc: cornletHomeSrc
-		}
-	];
 </script>
 
 <div class="my-[6rem]">
@@ -45,59 +30,56 @@
   before:[mask:radial-gradient(100%_50%_at_center_center,_black,_transparent)] before:[background-size:50%_100%,50%_100%]
   before:[background-position:1%_0%,99%_0%] after:pointer-events-none after:absolute
   after:inset-0"
-		style="--brand-color: {brandColor}; --shadow-dark: #000212; --brand-color-bright: {brandColorBright};">
+		style="--brand-color: {brandColorRGB}; --shadow-dark: #000212; --brand-color-bright: {brandColorBrightRGB};">
 		<div class="z-10 mt-[6rem] mb-16">
 			<div
 				class="{intersecting
 					? 'translate-y-0'
 					: 'translate-y-[3rem]'} flex w-full flex-col items-center pt-[12rem] [transition:transform_1000ms_cubic-bezier(0.3,_1.17,_0.55,_0.99)_0s] ">
 				<div class="flex items-center space-x-2 rounded-full bg-base-100 py-2 px-4 opacity-80">
-					<img class="h-4 w-4 rounded-full" src={cornletIconSrc} />
-					<p class="text-xs">Cornlet</p>
+					<img class="h-4 w-4 rounded-full" src={iconUrl} />
+					<p class="text-xs">{projectName}</p>
 				</div>
 
 				<h2
-					class="mt-4 text-center text-4xl font-extrabold !leading-tight tracking-tight md:text-6xl">
-					Subletting has
-					<br />
-					never been easier
+					class="mt-4 max-w-sm text-center text-4xl font-extrabold !leading-tight tracking-tight md:max-w-xl md:text-6xl">
+					{mainTitle}
 				</h2>
 
 				<p
 					class="mt-6 w-[80%] max-w-lg text-center text-sm leading-relaxed text-base-content/70 md:text-lg">
-					Cornlet is a web-based platform where Cornell students can advertise or look for sublets.
-					Finding a sublet doesn't have to be a hassle.
+					{description}
 				</p>
 
-				<div class="mt-10">
-					<a href="https://www.cornlet.com" target="_blank" rel="noreferrer">
-						<button class="btn-secondary btn-sm btn text-xs md:btn-md">
-							Visit Cornlet <IconOpenInNew />
-						</button>
-					</a>
-				</div>
+				{#if link}
+					<div class="mt-12">
+						<a href={link} target="_blank" rel="noreferrer">
+							<button class="btn-secondary btn-sm btn text-xs md:btn-md">
+								Visit {projectName}
+								<IconOpenInNew />
+							</button>
+						</a>
+					</div>
+				{/if}
 
 				<IntersectionObserver {element} bind:intersecting threshold={0.5}>
 					<div bind:this={element} />
 				</IntersectionObserver>
 
-				<img class="mt-20 w-[80%] max-w-2xl rounded-xl" src={cornletHomeSrc} />
+				<img class="mt-20 w-[80%] max-w-2xl rounded-xl" src={imgUrl} />
 
 				<h2
-					class="mt-48 text-center text-4xl font-extrabold !leading-tight tracking-tight md:text-5xl">
-					Subletting is no
-					<br />
-					longer a hassle
+					class="mt-48 max-w-sm text-center text-4xl font-extrabold !leading-tight tracking-tight md:max-w-xl md:text-5xl">
+					{secondTitle}
 				</h2>
 
 				<p
 					class="mt-8 w-[70%] max-w-xl text-center text-sm leading-relaxed text-base-content/70 md:text-lg">
-					Cornlet allows Cornell students to give and find sublets on a centralized, web-based
-					platform.
+					{description}
 				</p>
 
 				<div class="hidden md:block">
-					<RadialGradient placement="left" />
+					<RadialGradient placement="left" color={brandColorRGB} />
 				</div>
 
 				<div class="mt-18 flex w-full justify-center">
