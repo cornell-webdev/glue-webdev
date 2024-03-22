@@ -1,43 +1,100 @@
 <script>
-	import { page } from '$app/stores';
+	// import { page } from '$app/stores';
 	import PageContainer from '$lib/components/glue/PageContainer.svelte';
 	import SectionBoldStatement from '$lib/components/glue/landing/SectionBoldStatement.svelte';
-	import Saos from 'saos';
+	import Product from '$lib/components/Product.svelte';
+	import cornletHomeSrc from '$lib/assets/cornlet-home.jpg';
+	import cornletIconSrc from '$lib/assets/cornlet-icon.svg';
+	import cornletFeature1Src from '$lib/assets/cornlet-feature-1.jpg';
+	import cornletFeature2Src from '$lib/assets/cornlet-feature-2.jpg';
+	import cornletFeature3Src from '$lib/assets/cornlet-feature-3.jpg';
+	import cornletFeature4Src from '$lib/assets/cornlet-feature-4.jpg';
+	import revyIconSrc from '$lib/assets/revy-icon.svg';
+	import revyHomeSrc from '$lib/assets/revy-home.jpg';
+	import revyFeature1Src from '$lib/assets/revy-feature-1.jpg';
+	import revyFeature2Src from '$lib/assets/revy-feature-2.jpg';
+	import revyFeature3Src from '$lib/assets/revy-feature-3.jpg';
+	import revyFeature4Src from '$lib/assets/revy-feature-4.jpg';
 
-	$: ({ projects } = $page.data);
+	// TODO: make projects dynamic based on database
+	// $: ({ projects } = $page.data);
 </script>
 
-<PageContainer title="Projects">
-	<SectionBoldStatement
-		overline="Our projects"
-		heading="We've built so many things out of interest and passion"
-		desc="Our projects are either solving critical problems for the Cornell community or were a fun experience to build something cool " />
-	<Saos animation={'fade-in 0.5s cubic-bezier(0.470, 0.000, 0.745, 0.715) both'} once={true}>
-		<div class="mb-32 flex justify-center">
-			<div class="w-full max-w-3xl">
-				<h1 class="text-4xl font-extrabold">Our projects</h1>
-				<p class="mt-8 text-base-content/80">
-					Some of our projects have been discontinued, and that's totally okay! We like to emphasize
-					building whatever interests you quickly, deploying, and seeing how the market reacts.
-				</p>
-				<p class="mt-3 text-base-content/80">
-					Even if the market responds poorly, there's so much to be learned from a "failed" project.
-					These lessons often equip us with valuable insights that help propel the next project.
-				</p>
-				<div class="mt-12">
-					{#each projects as project (project.id)}
-						<div class="my-6 flex">
-							<img class="w-40 rounded-xl bg-base-content/10" src={project?.imgUrl} />
-							<div class="ml-6">
-								<h3 class="text-3xl font-extrabold">{project?.name}</h3>
-								<p class="mt-2 whitespace-pre-wrap leading-relaxed text-base-content/80">
-									{project?.description}
-								</p>
-							</div>
-						</div>
-					{/each}
-				</div>
-			</div>
+<div data-theme="dark">
+	<PageContainer title="Projects" isHoriPadding={false} limitWidth={false}>
+		<div class="pb-[20rem]">
+			<SectionBoldStatement
+				overline="Our projects"
+				heading="We've built so many things out of interest and passion"
+				desc="Our projects are either solving critical problems for the Cornell community or were a fun experience to build something cool " />
+
+			<!-- Cornlet -->
+			<Product
+				projectName="Cornlet"
+				mainTitle="Subletting has never been easier"
+				brandColorRGB="144,49,49"
+				brandColorBrightRGB="235,55,55"
+				iconUrl={cornletIconSrc}
+				description="Cornlet is a web-based platform where Cornell students can advertise or look for sublets. Finding a sublet doesn't have to be a hassle."
+				link="https://www.cornlet.com"
+				imgUrl={cornletHomeSrc}
+				secondTitle="A new and better way to sublet your place"
+				features={[
+					{
+						title: 'Browse sublets',
+						desc: 'Explore a diverse array of available sublet options, ranging from cozy apartments to spacious homes.',
+						imgSrc: cornletFeature1Src
+					},
+					{
+						title: 'Find your perfect sublet',
+						desc: 'Discover the ideal sublet tailored to your preferences and needs.',
+						imgSrc: cornletFeature2Src
+					},
+					{
+						title: 'Sign it before everyone else',
+						desc: 'The sublet market can get competitive, especially for good deals.',
+						imgSrc: cornletFeature3Src
+					},
+					{
+						title: 'Keep your location private',
+						desc: 'Keep your address secret to the public, until someone messages you.',
+						imgSrc: cornletFeature4Src
+					}
+				]} />
+
+			<!-- Revy -->
+			<Product
+				projectName="Revy"
+				mainTitle="Find a carpool in minutes, not days"
+				brandColorRGB="49,118,246"
+				brandColorBrightRGB="33,79,164"
+				iconUrl={revyIconSrc}
+				description="Revy is a carpooling platform for Cornellians. Travel no longer has to be a financial burden with Revy."
+				link="https://www.revycarpool.com"
+				imgUrl={revyHomeSrc}
+				secondTitle="Cut your travel costs by half with Revy"
+				features={[
+					{
+						title: '@cornell.edu required',
+						desc: 'Revy restricts all users to those with a @cornell.edu email.',
+						imgSrc: revyFeature1Src
+					},
+					{
+						title: 'Post with a few clicks',
+						desc: 'Posting a carpool on Revy only takes a few clicks.',
+						imgSrc: revyFeature2Src
+					},
+					{
+						title: 'Approve or decline passengers',
+						desc: 'As a driver, you have the freedom to approve passengers.',
+						imgSrc: revyFeature3Src
+					},
+					{
+						title: 'Find carpools on your terms',
+						desc: 'Search for carpools on your route for your preferred date.',
+						imgSrc: revyFeature4Src
+					}
+				]} />
 		</div>
-	</Saos>
-</PageContainer>
+	</PageContainer>
+</div>
